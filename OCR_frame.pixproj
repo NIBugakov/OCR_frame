@@ -49,11 +49,11 @@
     </ProjectFileItem>
     <ProjectFileItem z:Id="i13">
       <IsMain>false</IsMain>
-      <Path>Test.pix</Path>
+      <Path>DataExtractor.pix</Path>
     </ProjectFileItem>
     <ProjectFileItem z:Id="i14">
       <IsMain>false</IsMain>
-      <Path>Test2.pix</Path>
+      <Path>SaveResult.pix</Path>
     </ProjectFileItem>
   </Files>
   <MasterUploadId i:nil="true" />

@@ -130,7 +130,7 @@
                         <EnableStatus>true</EnableStatus>
                         <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                         <RetryCount>-1</RetryCount>
-                        <Text>Путь к входному файлу</Text>
+                        <Text>(Присвоить значение) Путь к входному файлу</Text>
                         <_activityFullName>BR.Core.Base.Assign</_activityFullName>
                       </AbstractStep>
                       <AbstractStep z:Id="i20" i:type="ExecutedStep">
@@ -157,7 +157,7 @@
                         <EnableStatus>true</EnableStatus>
                         <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                         <RetryCount>-1</RetryCount>
-                        <Text>Путь к входному файлу</Text>
+                        <Text>(Присвоить значение) Путь к входному файлу</Text>
                         <_activityFullName>BR.Core.Base.Assign</_activityFullName>
                       </AbstractStep>
                       <AbstractStep z:Id="i23" i:type="ExecutedStep">
@@ -184,7 +184,7 @@
                         <EnableStatus>true</EnableStatus>
                         <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                         <RetryCount>-1</RetryCount>
-                        <Text>(Получить пути к файлам/каталогам)_получение путей с файлами docx</Text>
+                        <Text>(Получить пути к файлам/каталогам) получение путей с файлами docx</Text>
                         <_activityFullName>Activities.Files.GetListFilesOrCatalogs</_activityFullName>
                       </AbstractStep>
                       <AbstractStep z:Id="i26" i:type="ExecutedStep">
@@ -211,7 +211,7 @@
                         <EnableStatus>true</EnableStatus>
                         <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                         <RetryCount>-1</RetryCount>
-                        <Text>(Получить пути к файлам/каталогам)_получение путейс с файлами pdf</Text>
+                        <Text>(Получить пути к файлам/каталогам) получение путейс с файлами pdf</Text>
                         <_activityFullName>Activities.Files.GetListFilesOrCatalogs</_activityFullName>
                       </AbstractStep>
                       <AbstractStep z:Id="i29" i:type="CommentStep">
@@ -248,7 +248,7 @@
                         <EnableStatus>true</EnableStatus>
                         <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                         <RetryCount>-1</RetryCount>
-                        <Text>(Присвоить значение)_linq формирующий лист транзакций </Text>
+                        <Text>(Присвоить значение) linq формирующий лист транзакций </Text>
                         <_activityFullName>BR.Core.Base.Assign</_activityFullName>
                       </AbstractStep>
                       <AbstractStep z:Id="i33" i:type="ExecutedStep">
@@ -277,7 +277,7 @@
                             <EnableStatus>true</EnableStatus>
                             <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                             <RetryCount>-1</RetryCount>
-                            <Text>(Присвоить значение)_pdf</Text>
+                            <Text>(Присвоить значение) pdf</Text>
                             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
                           </AbstractStep>
                           <AbstractStep z:Id="i37" i:type="CommentStep">
@@ -314,7 +314,7 @@
                             <EnableStatus>true</EnableStatus>
                             <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                             <RetryCount>-1</RetryCount>
-                            <Text>(Присвоить значение)_получение пути до docx</Text>
+                            <Text>(Присвоить значение) получение пути до docx</Text>
                             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
                           </AbstractStep>
                           <AbstractStep z:Id="i41" i:type="CommentStep">
