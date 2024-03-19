@@ -168,7 +168,7 @@
                           <PropertyValue z:Id="i24">
                             <PropertyName>DirPath</PropertyName>
                             <_dataType>Expression</_dataType>
-                            <_expression>Path.Combine(str_pathDocxFile)</_expression>
+                            <_expression>str_pathDocxFile</_expression>
                             <_value i:nil="true" />
                             <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                           </PropertyValue>
@@ -195,7 +195,7 @@
                           <PropertyValue z:Id="i27">
                             <PropertyName>DirPath</PropertyName>
                             <_dataType>Expression</_dataType>
-                            <_expression>Path.Combine(str_pathPdfFile)</_expression>
+                            <_expression>str_pathPdfFile</_expression>
                             <_value i:nil="true" />
                             <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                           </PropertyValue>

@@ -66,28 +66,55 @@
         <_activityFullName>Activities.BaseCollections.DT.CreateTable</_activityFullName>
       </AbstractStep>
       <AbstractStep z:Id="i7" i:type="ExecutedStep">
+        <Childs />
+        <Id>75b43ca4-f367-4f7e-96e6-57cb12ed2e67</Id>
+        <Parent z:Ref="i2" />
+        <PropertyValues>
+          <PropertyValue z:Id="i8">
+            <PropertyName>Value</PropertyName>
+            <_dataType>Expression</_dataType>
+            <_expression>in_dt_document.Copy()</_expression>
+            <_value i:nil="true" />
+            <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+          </PropertyValue>
+          <PropertyValue z:Id="i9">
+            <PropertyName>To</PropertyName>
+            <_dataType>Expression</_dataType>
+            <_expression>dt_documentCopy</_expression>
+            <_value i:nil="true" />
+            <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+          </PropertyValue>
+        </PropertyValues>
+        <SelectedOptionId i:nil="true" />
+        <EnableStatus>true</EnableStatus>
+        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+        <RetryCount>-1</RetryCount>
+        <Text></Text>
+        <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+      </AbstractStep>
+      <AbstractStep z:Id="i10" i:type="ExecutedStep">
         <Childs>
-          <AbstractStep z:Id="i8" i:type="CommentStep">
+          <AbstractStep z:Id="i11" i:type="CommentStep">
             <Childs />
             <Id>127040d2-6a0e-4c8a-9b4a-d09b0f7e6bc6</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues />
             <SelectedOptionId i:nil="true" />
             <Text>Патерн для отчистки частей пути от не желательных символов</Text>
           </AbstractStep>
-          <AbstractStep z:Id="i9" i:type="ExecutedStep">
+          <AbstractStep z:Id="i12" i:type="ExecutedStep">
             <Childs />
             <Id>75c6d600-7e87-43f7-bd3c-7ec9aef41510</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues>
-              <PropertyValue z:Id="i10">
+              <PropertyValue z:Id="i13">
                 <PropertyName>Value</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>new Regex(@"[?=:*?;«,./\&lt;&gt;]")</_expression>
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
-              <PropertyValue z:Id="i11">
+              <PropertyValue z:Id="i14">
                 <PropertyName>To</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>reg_pattern</_expression>
@@ -102,19 +129,19 @@
             <Text>(Присвоить значение) патерн для поиска символов</Text>
             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
           </AbstractStep>
-          <AbstractStep z:Id="i12" i:type="ExecutedStep">
+          <AbstractStep z:Id="i15" i:type="ExecutedStep">
             <Childs />
             <Id>77625beb-1610-437e-a272-d9754c4b9b00</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues>
-              <PropertyValue z:Id="i13">
+              <PropertyValue z:Id="i16">
                 <PropertyName>Value</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>DateTime.Parse(row_document["Дата"].ToString(), new CultureInfo("ru-RU"))</_expression>
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
-              <PropertyValue z:Id="i14">
+              <PropertyValue z:Id="i17">
                 <PropertyName>To</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>dtime_date</_expression>
@@ -129,12 +156,12 @@
             <Text>(Присвоить значение) парсинг даты</Text>
             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
           </AbstractStep>
-          <AbstractStep z:Id="i15" i:type="ExecutedStep">
+          <AbstractStep z:Id="i18" i:type="ExecutedStep">
             <Childs />
             <Id>59416824-2922-468e-8671-bad1642b0c58</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues>
-              <PropertyValue z:Id="i16">
+              <PropertyValue z:Id="i19">
                 <PropertyName>Value</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>dtime_date.ToString("dd/MM/yyyy", new CultureInfo("ru-RU"))
@@ -142,7 +169,7 @@
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
-              <PropertyValue z:Id="i17">
+              <PropertyValue z:Id="i20">
                 <PropertyName>To</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>str_date</_expression>
@@ -157,12 +184,12 @@
             <Text>(Присвоить значение) получение даты в необходимом формате</Text>
             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
           </AbstractStep>
-          <AbstractStep z:Id="i18" i:type="ExecutedStep">
+          <AbstractStep z:Id="i21" i:type="ExecutedStep">
             <Childs />
             <Id>e21144b0-1655-49ef-ab4e-b250d89eea07</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues>
-              <PropertyValue z:Id="i19">
+              <PropertyValue z:Id="i22">
                 <PropertyName>Value</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>dtime_date.ToString("yyyy", new CultureInfo("ru-RU"))
@@ -170,7 +197,7 @@
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
-              <PropertyValue z:Id="i20">
+              <PropertyValue z:Id="i23">
                 <PropertyName>To</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>str_year</_expression>
@@ -185,19 +212,19 @@
             <Text>(Присвоить значение) получение года</Text>
             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
           </AbstractStep>
-          <AbstractStep z:Id="i21" i:type="ExecutedStep">
+          <AbstractStep z:Id="i24" i:type="ExecutedStep">
             <Childs />
             <Id>34ae76f5-d4bd-4404-9c71-c97d2e4c535e</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues>
-              <PropertyValue z:Id="i22">
+              <PropertyValue z:Id="i25">
                 <PropertyName>Value</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>dtime_date.ToString("MM", new CultureInfo("ru-RU"))</_expression>
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
-              <PropertyValue z:Id="i23">
+              <PropertyValue z:Id="i26">
                 <PropertyName>To</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>str_month</_expression>
@@ -212,19 +239,19 @@
             <Text>(Присвоить значение) получение месяца</Text>
             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
           </AbstractStep>
-          <AbstractStep z:Id="i24" i:type="ExecutedStep">
+          <AbstractStep z:Id="i27" i:type="ExecutedStep">
             <Childs />
             <Id>e7db25c8-b139-42d3-9def-64c51cef0205</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues>
-              <PropertyValue z:Id="i25">
+              <PropertyValue z:Id="i28">
                 <PropertyName>Value</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>Convert.ToInt32(row_document["Страница конца"]) - Convert.ToInt32(row_document["Страница начала"]) + 1</_expression>
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
-              <PropertyValue z:Id="i26">
+              <PropertyValue z:Id="i29">
                 <PropertyName>To</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>int_countPage</_expression>
@@ -239,19 +266,19 @@
             <Text>(Присвоить значение) кол-во страниц в документе </Text>
             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
           </AbstractStep>
-          <AbstractStep z:Id="i27" i:type="ExecutedStep">
+          <AbstractStep z:Id="i30" i:type="ExecutedStep">
             <Childs />
             <Id>cf6c3b5d-33d0-45aa-ab1a-f023cad404dc</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues>
-              <PropertyValue z:Id="i28">
+              <PropertyValue z:Id="i31">
                 <PropertyName>Value</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>reg_pattern.Replace($"{row_document["Номер"]}","_")</_expression>
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
-              <PropertyValue z:Id="i29">
+              <PropertyValue z:Id="i32">
                 <PropertyName>To</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>str_numDocument</_expression>
@@ -266,19 +293,19 @@
             <Text>(Присвоить значение) отредактированного номера документа </Text>
             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
           </AbstractStep>
-          <AbstractStep z:Id="i30" i:type="ExecutedStep">
+          <AbstractStep z:Id="i33" i:type="ExecutedStep">
             <Childs />
             <Id>f2d5a2fe-ce73-478a-9a97-639827dbe1ff</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues>
-              <PropertyValue z:Id="i31">
+              <PropertyValue z:Id="i34">
                 <PropertyName>Value</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>reg_pattern.Replace($"{row_document["Наименование"]}","_")</_expression>
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
-              <PropertyValue z:Id="i32">
+              <PropertyValue z:Id="i35">
                 <PropertyName>To</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>str_nameDocument</_expression>
@@ -293,19 +320,19 @@
             <Text>(Присвоить значение) отредактированного наименования документа</Text>
             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
           </AbstractStep>
-          <AbstractStep z:Id="i33" i:type="ExecutedStep">
+          <AbstractStep z:Id="i36" i:type="ExecutedStep">
             <Childs />
             <Id>b72f7c1c-50a3-41c9-a3c6-23045a0dd2f8</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues>
-              <PropertyValue z:Id="i34">
+              <PropertyValue z:Id="i37">
                 <PropertyName>Value</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>Path.Combine(str_year,str_month,str_nameDocument,$"{str_numDocument}_{int_countPage}.pdf")</_expression>
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
-              <PropertyValue z:Id="i35">
+              <PropertyValue z:Id="i38">
                 <PropertyName>To</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>str_newPath</_expression>
@@ -320,12 +347,12 @@
             <Text>(Присвоить значение) путь к новому файлу пдф</Text>
             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
           </AbstractStep>
-          <AbstractStep z:Id="i36" i:type="ExecutedStep">
+          <AbstractStep z:Id="i39" i:type="ExecutedStep">
             <Childs />
             <Id>e24ae8e0-6d3e-463e-8e56-d341aec356d7</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues>
-              <PropertyValue z:Id="i37">
+              <PropertyValue z:Id="i40">
                 <PropertyName>NewFolderPath</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>Path.Combine(str_year,str_month,$"{row_document["Наименование"]}")</_expression>
@@ -340,26 +367,26 @@
             <Text>(Создать папку) где будет лежать pdf</Text>
             <_activityFullName>Activities.Files.CreateFolder</_activityFullName>
           </AbstractStep>
-          <AbstractStep z:Id="i38" i:type="ExecutedStep">
+          <AbstractStep z:Id="i41" i:type="ExecutedStep">
             <Childs />
             <Id>d79ac4f3-4ca8-499c-9b14-9a28cde23934</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues>
-              <PropertyValue z:Id="i39">
+              <PropertyValue z:Id="i42">
                 <PropertyName>FromPdfPath</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>in_str_pathPdf</_expression>
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
-              <PropertyValue z:Id="i40">
+              <PropertyValue z:Id="i43">
                 <PropertyName>ToPdfPath</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>str_newPath</_expression>
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
-              <PropertyValue z:Id="i41">
+              <PropertyValue z:Id="i44">
                 <PropertyName>Range</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>$"{row_document["Страница конца"]}:{row_document["Страница начала"]}"</_expression>
@@ -374,21 +401,21 @@
             <Text>(Выбрать страницы) сигригация pdf файла </Text>
             <_activityFullName>Activities.PDF.SplitPDF</_activityFullName>
           </AbstractStep>
-          <AbstractStep z:Id="i42" i:type="ExecutedStep">
+          <AbstractStep z:Id="i45" i:type="ExecutedStep">
             <Childs>
-              <AbstractStep z:Id="i43" i:type="ExecutedStep">
+              <AbstractStep z:Id="i46" i:type="ExecutedStep">
                 <Childs />
                 <Id>2a2b12c5-d216-4311-8b53-6289dac50f9f</Id>
-                <Parent z:Ref="i42" />
+                <Parent z:Ref="i45" />
                 <PropertyValues>
-                  <PropertyValue z:Id="i44">
+                  <PropertyValue z:Id="i47">
                     <PropertyName>Value</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>dt_formattedTable.NewRow();</_expression>
                     <_value i:nil="true" />
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i45">
+                  <PropertyValue z:Id="i48">
                     <PropertyName>To</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>row_new</_expression>
@@ -403,19 +430,19 @@
                 <Text>(Присвоить значение) создание новой строки</Text>
                 <_activityFullName>BR.Core.Base.Assign</_activityFullName>
               </AbstractStep>
-              <AbstractStep z:Id="i46" i:type="ExecutedStep">
+              <AbstractStep z:Id="i49" i:type="ExecutedStep">
                 <Childs />
                 <Id>880af5e5-bf04-4b63-94c7-7d2fc7a645ff</Id>
-                <Parent z:Ref="i42" />
+                <Parent z:Ref="i45" />
                 <PropertyValues>
-                  <PropertyValue z:Id="i47">
+                  <PropertyValue z:Id="i50">
                     <PropertyName>Value</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>row_document["Наименование"]</_expression>
                     <_value i:nil="true" />
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i48">
+                  <PropertyValue z:Id="i51">
                     <PropertyName>To</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>row_new["Вид документа"]</_expression>
@@ -430,19 +457,19 @@
                 <Text>(Присвоить значение) присвоение строке Вид</Text>
                 <_activityFullName>BR.Core.Base.Assign</_activityFullName>
               </AbstractStep>
-              <AbstractStep z:Id="i49" i:type="ExecutedStep">
+              <AbstractStep z:Id="i52" i:type="ExecutedStep">
                 <Childs />
                 <Id>c18c2014-2d6b-4488-a22a-e8038fd446b4</Id>
-                <Parent z:Ref="i42" />
+                <Parent z:Ref="i45" />
                 <PropertyValues>
-                  <PropertyValue z:Id="i50">
+                  <PropertyValue z:Id="i53">
                     <PropertyName>Value</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>row_document["Имя Файла"]</_expression>
                     <_value i:nil="true" />
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i51">
+                  <PropertyValue z:Id="i54">
                     <PropertyName>To</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>row_new["Имя начального файла"]</_expression>
@@ -457,19 +484,19 @@
                 <Text>(Присвоить значение) присвоение строке Имя начального файла</Text>
                 <_activityFullName>BR.Core.Base.Assign</_activityFullName>
               </AbstractStep>
-              <AbstractStep z:Id="i52" i:type="ExecutedStep">
+              <AbstractStep z:Id="i55" i:type="ExecutedStep">
                 <Childs />
                 <Id>02c80d4b-db98-41e0-a887-80bd642c19a9</Id>
-                <Parent z:Ref="i42" />
+                <Parent z:Ref="i45" />
                 <PropertyValues>
-                  <PropertyValue z:Id="i53">
+                  <PropertyValue z:Id="i56">
                     <PropertyName>Value</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>$"{str_numDocument}_{int_countPage}.pdf"</_expression>
                     <_value i:nil="true" />
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i54">
+                  <PropertyValue z:Id="i57">
                     <PropertyName>To</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>row_new["Имя обработанного PDF документа"]</_expression>
@@ -484,19 +511,19 @@
                 <Text>(Присвоить значение) присвоение строке Имя обработанного PDF документа</Text>
                 <_activityFullName>BR.Core.Base.Assign</_activityFullName>
               </AbstractStep>
-              <AbstractStep z:Id="i55" i:type="ExecutedStep">
+              <AbstractStep z:Id="i58" i:type="ExecutedStep">
                 <Childs />
                 <Id>878d10be-cf02-40ea-a0c4-48bab4bc6d01</Id>
-                <Parent z:Ref="i42" />
+                <Parent z:Ref="i45" />
                 <PropertyValues>
-                  <PropertyValue z:Id="i56">
+                  <PropertyValue z:Id="i59">
                     <PropertyName>Value</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>str_date</_expression>
                     <_value i:nil="true" />
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i57">
+                  <PropertyValue z:Id="i60">
                     <PropertyName>To</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>row_new["Дата"]</_expression>
@@ -511,19 +538,19 @@
                 <Text>(Присвоить значение) присвоение строке Дата</Text>
                 <_activityFullName>BR.Core.Base.Assign</_activityFullName>
               </AbstractStep>
-              <AbstractStep z:Id="i58" i:type="ExecutedStep">
+              <AbstractStep z:Id="i61" i:type="ExecutedStep">
                 <Childs />
                 <Id>ea7928b3-73b9-4778-8c64-113786eb59e2</Id>
-                <Parent z:Ref="i42" />
+                <Parent z:Ref="i45" />
                 <PropertyValues>
-                  <PropertyValue z:Id="i59">
+                  <PropertyValue z:Id="i62">
                     <PropertyName>Value</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>str_numDocument</_expression>
                     <_value i:nil="true" />
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i60">
+                  <PropertyValue z:Id="i63">
                     <PropertyName>To</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>row_new["Номер"]</_expression>
@@ -538,19 +565,19 @@
                 <Text>(Присвоить значение) присвоение строке Номер</Text>
                 <_activityFullName>BR.Core.Base.Assign</_activityFullName>
               </AbstractStep>
-              <AbstractStep z:Id="i61" i:type="ExecutedStep">
+              <AbstractStep z:Id="i64" i:type="ExecutedStep">
                 <Childs />
                 <Id>3278950f-50c2-4d56-bf3e-976fca9ce534</Id>
-                <Parent z:Ref="i42" />
+                <Parent z:Ref="i45" />
                 <PropertyValues>
-                  <PropertyValue z:Id="i62">
+                  <PropertyValue z:Id="i65">
                     <PropertyName>Value</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>row_document["ИНН"]</_expression>
                     <_value i:nil="true" />
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i63">
+                  <PropertyValue z:Id="i66">
                     <PropertyName>To</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>row_new["ИНН"]</_expression>
@@ -565,33 +592,33 @@
                 <Text>(Присвоить значение) присвоение строке ИНН</Text>
                 <_activityFullName>BR.Core.Base.Assign</_activityFullName>
               </AbstractStep>
-              <AbstractStep z:Id="i64" i:type="ExecutedStep">
+              <AbstractStep z:Id="i67" i:type="ExecutedStep">
                 <Childs />
                 <Id>ef7ce51e-57c0-4c54-a3a8-ed3af7eabd89</Id>
-                <Parent z:Ref="i42" />
+                <Parent z:Ref="i45" />
                 <PropertyValues>
-                  <PropertyValue z:Id="i65">
+                  <PropertyValue z:Id="i68">
                     <PropertyName>Row</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>row_new</_expression>
                     <_value i:nil="true" />
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i66">
+                  <PropertyValue z:Id="i69">
                     <PropertyName>InsertPosition</PropertyName>
                     <_dataType>Value</_dataType>
                     <_expression i:nil="true" />
                     <_value xmlns:d11p1="http://schemas.datacontract.org/2004/07/Activities.BaseCollections.DT" i:type="d11p1:InsertPosition">End</_value>
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i67">
+                  <PropertyValue z:Id="i70">
                     <PropertyName>AutoCreateColumns</PropertyName>
                     <_dataType>Value</_dataType>
                     <_expression i:nil="true" />
                     <_value xmlns:d11p1="http://www.w3.org/2001/XMLSchema" i:type="d11p1:boolean">false</_value>
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i68">
+                  <PropertyValue z:Id="i71">
                     <PropertyName>BaseDataTable</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>dt_formattedTable</_expression>
@@ -608,7 +635,7 @@
               </AbstractStep>
             </Childs>
             <Id>87234481-ecad-4d2d-a45a-d077d1113398</Id>
-            <Parent z:Ref="i7" />
+            <Parent z:Ref="i10" />
             <PropertyValues />
             <SelectedOptionId i:nil="true" />
             <EnableStatus>true</EnableStatus>
@@ -621,21 +648,21 @@
         <Id>8886a3f2-a7ab-4936-a1d5-4f9adff2cc5b</Id>
         <Parent z:Ref="i2" />
         <PropertyValues>
-          <PropertyValue z:Id="i69">
+          <PropertyValue z:Id="i72">
             <PropertyName>Collection</PropertyName>
             <_dataType>Expression</_dataType>
-            <_expression>in_dt_document.Rows</_expression>
+            <_expression>dt_documentCopy.Rows</_expression>
             <_value i:nil="true" />
             <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
           </PropertyValue>
-          <PropertyValue z:Id="i70">
+          <PropertyValue z:Id="i73">
             <PropertyName>Iterator</PropertyName>
             <_dataType>Expression</_dataType>
             <_expression>row_document</_expression>
             <_value i:nil="true" />
             <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
           </PropertyValue>
-          <PropertyValue z:Id="i71">
+          <PropertyValue z:Id="i74">
             <PropertyName>Counter</PropertyName>
             <_dataType>Expression</_dataType>
             <_expression></_expression>
@@ -650,19 +677,19 @@
         <Text></Text>
         <_activityFullName>BR.Core.Base.LoopForEach</_activityFullName>
       </AbstractStep>
-      <AbstractStep z:Id="i72" i:type="ExecutedStep">
+      <AbstractStep z:Id="i75" i:type="ExecutedStep">
         <Childs />
         <Id>b0da70c2-89b5-43e3-9676-8fae3c2c165b</Id>
         <Parent z:Ref="i2" />
         <PropertyValues>
-          <PropertyValue z:Id="i73">
+          <PropertyValue z:Id="i76">
             <PropertyName>Value</PropertyName>
             <_dataType>Expression</_dataType>
             <_expression>Path.Combine(DateTime.Now.ToString("yyyy.MM", new CultureInfo("ru-RU")),DateTime.Now.ToString("yyyy.MM.dd", new CultureInfo("ru-RU")) + ".xlsx")</_expression>
             <_value i:nil="true" />
             <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
           </PropertyValue>
-          <PropertyValue z:Id="i74">
+          <PropertyValue z:Id="i77">
             <PropertyName>To</PropertyName>
             <_dataType>Expression</_dataType>
             <_expression>str_pathToExcelFile</_expression>
@@ -677,19 +704,19 @@
         <Text>(Присвоить значение) создание пути до файла excel</Text>
         <_activityFullName>BR.Core.Base.Assign</_activityFullName>
       </AbstractStep>
-      <AbstractStep z:Id="i75" i:type="ExecutedStep">
+      <AbstractStep z:Id="i78" i:type="ExecutedStep">
         <Childs />
         <Id>733069c7-4ad7-43ff-819e-f71bbe85071c</Id>
         <Parent z:Ref="i2" />
         <PropertyValues>
-          <PropertyValue z:Id="i76">
+          <PropertyValue z:Id="i79">
             <PropertyName>FileDirectoryPath</PropertyName>
             <_dataType>Expression</_dataType>
             <_expression>str_pathToExcelFile</_expression>
             <_value i:nil="true" />
             <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
           </PropertyValue>
-          <PropertyValue z:Id="i77">
+          <PropertyValue z:Id="i80">
             <PropertyName>Result</PropertyName>
             <_dataType>Expression</_dataType>
             <_expression>bool_exist</_expression>
@@ -704,37 +731,37 @@
         <Text>(Путь существует?) файл отчета</Text>
         <_activityFullName>Activities.Files.PathExist</_activityFullName>
       </AbstractStep>
-      <AbstractStep z:Id="i78" i:type="ExecutedStep">
+      <AbstractStep z:Id="i81" i:type="ExecutedStep">
         <Childs>
-          <AbstractStep z:Id="i79" i:type="ExecutedStep">
+          <AbstractStep z:Id="i82" i:type="ExecutedStep">
             <Childs>
-              <AbstractStep z:Id="i80" i:type="ExecutedStep">
+              <AbstractStep z:Id="i83" i:type="ExecutedStep">
                 <Childs />
                 <Id>1bab52fc-ac3f-4adb-aafa-0ca92c598cd1</Id>
-                <Parent z:Ref="i79" />
+                <Parent z:Ref="i82" />
                 <PropertyValues>
-                  <PropertyValue z:Id="i81">
+                  <PropertyValue z:Id="i84">
                     <PropertyName>DataTable</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>dt_formattedTable</_expression>
                     <_value i:nil="true" />
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i82">
+                  <PropertyValue z:Id="i85">
                     <PropertyName>AddHeaders</PropertyName>
                     <_dataType>Value</_dataType>
                     <_expression i:nil="true" />
                     <_value xmlns:d11p1="http://www.w3.org/2001/XMLSchema" i:type="d11p1:boolean">false</_value>
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i83">
+                  <PropertyValue z:Id="i86">
                     <PropertyName>SheetName</PropertyName>
                     <_dataType>Value</_dataType>
                     <_expression i:nil="true" />
                     <_value xmlns:d11p1="http://www.w3.org/2001/XMLSchema" i:type="d11p1:string">Лист1</_value>
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i84">
+                  <PropertyValue z:Id="i87">
                     <PropertyName>FileName</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>str_pathToExcelFile</_expression>
@@ -751,7 +778,7 @@
               </AbstractStep>
             </Childs>
             <Id>9a4c8813-ab5d-49fa-ac58-5dd73d56af43</Id>
-            <Parent z:Ref="i78" />
+            <Parent z:Ref="i81" />
             <PropertyValues />
             <SelectedOptionId i:nil="true" />
             <EnableStatus>true</EnableStatus>
@@ -760,35 +787,35 @@
             <Text></Text>
             <_activityFullName>BR.Core.Base.IfTrue</_activityFullName>
           </AbstractStep>
-          <AbstractStep z:Id="i85" i:type="ExecutedStep">
+          <AbstractStep z:Id="i88" i:type="ExecutedStep">
             <Childs>
-              <AbstractStep z:Id="i86" i:type="ExecutedStep">
+              <AbstractStep z:Id="i89" i:type="ExecutedStep">
                 <Childs />
                 <Id>99eb84b6-1b23-478a-bdd7-eb944fbc6330</Id>
-                <Parent z:Ref="i85" />
+                <Parent z:Ref="i88" />
                 <PropertyValues>
-                  <PropertyValue z:Id="i87">
+                  <PropertyValue z:Id="i90">
                     <PropertyName>DataTable</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>dt_formattedTable</_expression>
                     <_value i:nil="true" />
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i88">
+                  <PropertyValue z:Id="i91">
                     <PropertyName>AddHeaders</PropertyName>
                     <_dataType>Value</_dataType>
                     <_expression i:nil="true" />
                     <_value xmlns:d11p1="http://www.w3.org/2001/XMLSchema" i:type="d11p1:boolean">true</_value>
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i89">
+                  <PropertyValue z:Id="i92">
                     <PropertyName>SheetName</PropertyName>
                     <_dataType>Value</_dataType>
                     <_expression i:nil="true" />
                     <_value xmlns:d11p1="http://www.w3.org/2001/XMLSchema" i:type="d11p1:string">Лист1</_value>
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
-                  <PropertyValue z:Id="i90">
+                  <PropertyValue z:Id="i93">
                     <PropertyName>FileName</PropertyName>
                     <_dataType>Expression</_dataType>
                     <_expression>str_pathToExcelFile</_expression>
@@ -805,7 +832,7 @@
               </AbstractStep>
             </Childs>
             <Id>ebd0291f-261e-4cd0-926f-e6d2ef649d2b</Id>
-            <Parent z:Ref="i78" />
+            <Parent z:Ref="i81" />
             <PropertyValues />
             <SelectedOptionId i:nil="true" />
             <EnableStatus>true</EnableStatus>
@@ -818,7 +845,7 @@
         <Id>14393342-262a-4f50-95fa-be109a527cb5</Id>
         <Parent z:Ref="i2" />
         <PropertyValues>
-          <PropertyValue z:Id="i91">
+          <PropertyValue z:Id="i94">
             <PropertyName>Condition</PropertyName>
             <_dataType>Expression</_dataType>
             <_expression>bool_exist</_expression>
@@ -850,13 +877,13 @@
     <d2p1:string>System.Text.RegularExpressions</d2p1:string>
   </Namespaces>
   <Params>
-    <Parameter z:Id="i92">
+    <Parameter z:Id="i95">
       <DefaultValueExpression></DefaultValueExpression>
       <Description></Description>
       <Name>in_dt_document</Name>
       <TypeString>System.Data.DataTable</TypeString>
     </Parameter>
-    <Parameter z:Id="i93">
+    <Parameter z:Id="i96">
       <DefaultValueExpression></DefaultValueExpression>
       <Description></Description>
       <Name>in_str_pathPdf</Name>

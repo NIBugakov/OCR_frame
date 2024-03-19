@@ -120,7 +120,7 @@
         <EnableStatus>true</EnableStatus>
         <ExceptionHandlingMode>Default</ExceptionHandlingMode>
         <RetryCount>-1</RetryCount>
-        <Text>(Присвоить значение) инициализаця переменной для хранения пути pdf</Text>
+        <Text>(Присвоить значение) инициализаця новой таблицы</Text>
         <_activityFullName>BR.Core.Base.Assign</_activityFullName>
       </AbstractStep>
       <AbstractStep z:Id="i16" i:type="CommentStep">
@@ -356,7 +356,7 @@
                       <PropertyValue z:Id="i44">
                         <PropertyName>Value</PropertyName>
                         <_dataType>Expression</_dataType>
-                        <_expression>str_pathPdf.Replace("IN","TEMP")</_expression>
+                        <_expression>Path.Combine(dict_paths["TEMPFolder"], Path.GetFileNameWithoutExtension(str_pathPdf))</_expression>
                         <_value i:nil="true" />
                         <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                       </PropertyValue>
@@ -383,7 +383,7 @@
                       <PropertyValue z:Id="i47">
                         <PropertyName>Value</PropertyName>
                         <_dataType>Expression</_dataType>
-                        <_expression>str_pathDocx.Replace("IN","TEMP")</_expression>
+                        <_expression>Path.Combine(dict_paths["TEMPFolder"], Path.GetFileNameWithoutExtension(str_pathDocx))</_expression>
                         <_value i:nil="true" />
                         <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                       </PropertyValue>
@@ -502,14 +502,14 @@
                         <_expression i:nil="true" />
                         <_value xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.Core" i:type="d13p1:ArrayOfArgumentItem">
                           <d13p1:ArgumentItem z:Id="i62">
-                            <d13p1:ArgumentName>in_pathToFile</d13p1:ArgumentName>
-                            <d13p1:Expression>str_pathDocxNew</d13p1:Expression>
-                            <d13p1:Type>System.String</d13p1:Type>
-                          </d13p1:ArgumentItem>
-                          <d13p1:ArgumentItem z:Id="i63">
                             <d13p1:ArgumentName>out_dt_document</d13p1:ArgumentName>
                             <d13p1:Expression>dt_document</d13p1:Expression>
                             <d13p1:Type>System.Data.DataTable</d13p1:Type>
+                          </d13p1:ArgumentItem>
+                          <d13p1:ArgumentItem z:Id="i63">
+                            <d13p1:ArgumentName>in_str_pathToFile</d13p1:ArgumentName>
+                            <d13p1:Expression>str_pathDocxNew</d13p1:Expression>
+                            <d13p1:Type>System.String</d13p1:Type>
                           </d13p1:ArgumentItem>
                         </_value>
                         <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />

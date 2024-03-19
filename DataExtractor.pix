@@ -36,7 +36,7 @@
           <PropertyValue z:Id="i7">
             <PropertyName>WordFilePath</PropertyName>
             <_dataType>Expression</_dataType>
-            <_expression>in_pathToFile</_expression>
+            <_expression>in_str_pathToFile</_expression>
             <_value i:nil="true" />
             <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
           </PropertyValue>
@@ -79,21 +79,21 @@
                 </xs:schema>
                 <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
                   <DocumentElement xmlns="">
-                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable7" msdata:rowOrder="0" diffgr:hasChanges="inserted">
                       <Наименование>СФ</Наименование>
-                      <RegexNum>(сч[её]т-фактура)\s*№[\D]*(?'num'\b[\w-/]\d+[\w-/]*\b)</RegexNum>
+                      <RegexNum>(сч[её]т-фактура)\s*№[\D]*(?'num'\b[\w-/]*\d+[\w-/]*\b)</RegexNum>
                       <RegexDate>(заменить)[\D\n\t\s]*(?'date'((0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[ \/\.\-](\d){2,4})|(0?[1-9]|[12][0-9]|3[01]) (янв(?:аря)?|фев(?:раля)?|мар(?:та)?|апр(?:еля)?|мая|июн(?:я)?|июл(?:я)?|авг(?:уста)?|сен(?:тября)?|окт(?:ября)?|ноя(?:бря)?|дек(?:абря)?)[ \/\.\-](\d){2,4})</RegexDate>
                       <RegexINN>(продавец(.+?)\s*(?'INN'\d{10,12}\s*)/(\s*\d+)|(?'INN'\d{10,12}\s*)/(\s*\d+))</RegexINN>
                     </DataTableSettingsTable>
-                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
+                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable8" msdata:rowOrder="1" diffgr:hasChanges="inserted">
                       <Наименование>CO</Наименование>
-                      <RegexNum>(Счет на оплату)\s*№[\D]*(?'num'\b[\w-/]\d+[\w-/]*\b)</RegexNum>
+                      <RegexNum>(Счет на оплату)\s*№[\D]*(?'num'\b[\w-/]*\d+[\w-/]*\b)</RegexNum>
                       <RegexDate>(заменить)[\D\n\t\s]*(?'date'((0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[ \/\.\-](\d){2,4})|(0?[1-9]|[12][0-9]|3[01]) (янв(?:аря)?|фев(?:раля)?|мар(?:та)?|апр(?:еля)?|мая|июн(?:я)?|июл(?:я)?|авг(?:уста)?|сен(?:тября)?|окт(?:ября)?|ноя(?:бря)?|дек(?:абря)?)[ \/\.\-](\d){2,4})</RegexDate>
                       <RegexINN>(Поставщик(.+?)\s*(?'INN'\d{10,12}\s*))</RegexINN>
                     </DataTableSettingsTable>
-                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable3" msdata:rowOrder="2" diffgr:hasChanges="inserted">
+                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable9" msdata:rowOrder="2" diffgr:hasChanges="inserted">
                       <Наименование>АКТ</Наименование>
-                      <RegexNum>(акт)\s*№[\D]*(?'num'\b[\w-/]\d+[\w-/]*\b)</RegexNum>
+                      <RegexNum>(акт)\s*№[\D]*(?'num'\b[\w-/]*\d+[\w-/]*\b)</RegexNum>
                       <RegexDate>(заменить)[\D\n\t\s]*(?'date'((0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[ \/\.\-](\d){2,4})|(0?[1-9]|[12][0-9]|3[01]) (янв(?:аря)?|фев(?:раля)?|мар(?:та)?|апр(?:еля)?|мая|июн(?:я)?|июл(?:я)?|авг(?:уста)?|сен(?:тября)?|окт(?:ября)?|ноя(?:бря)?|дек(?:абря)?)[ \/\.\-](\d){2,4})</RegexDate>
                       <RegexINN>(Исполнитель(.+?)\s*(?'INN'\d{10,12}\s*))</RegexINN>
                     </DataTableSettingsTable>
@@ -586,7 +586,7 @@
                 <EnableStatus>true</EnableStatus>
                 <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                 <RetryCount>-1</RetryCount>
-                <Text>(Условный оператор) если номер договора не пустой</Text>
+                <Text>(Условный оператор) если номер договора пустой</Text>
                 <_activityFullName>BR.Core.Base.If</_activityFullName>
               </AbstractStep>
             </Childs>
@@ -810,7 +810,7 @@
     <Parameter z:Id="i81">
       <DefaultValueExpression></DefaultValueExpression>
       <Description></Description>
-      <Name>in_pathToFile</Name>
+      <Name>in_str_pathToFile</Name>
       <TypeString>System.String</TypeString>
     </Parameter>
     <Parameter z:Id="i82">
