@@ -55,6 +55,10 @@
       <IsMain>false</IsMain>
       <Path>SaveResult.pix</Path>
     </ProjectFileItem>
+    <ProjectFileItem z:Id="i15">
+      <IsMain>false</IsMain>
+      <Path>ExtractorOCR.pix</Path>
+    </ProjectFileItem>
   </Files>
   <MasterUploadId i:nil="true" />
   <Name>OCR_frame</Name>

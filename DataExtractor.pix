@@ -12,7 +12,15 @@
         <PropertyValues />
         <SelectedOptionId i:nil="true" />
         <Text>Описание скрипта:
-Скрипт отвечатет за обработку файла и получение сведений о входящих в него файлов.</Text>
+Скрипт отвечатет за обработку файла и получение сведений о входящих в него файлов.
+
+
+1 Скрипт проходится по всем страницам
+2 для каждой страници идет поиск номера договора всеми патернами 
+3 если свопадений больше одного ,то идет перезапись текущего договра с занисением ошибки внутрь таблици 
+4 если  была найдено 0 записей идет повторная попытка сканирования документа OCR  
+4.1 если ничего не было найдено страница считается продолжением прошлого договора 
+5. таблица с договорами уходит на сохранение </Text>
       </AbstractStep>
       <AbstractStep z:Id="i4" i:type="ExecutedStep">
         <Childs />
@@ -36,7 +44,7 @@
           <PropertyValue z:Id="i7">
             <PropertyName>WordFilePath</PropertyName>
             <_dataType>Expression</_dataType>
-            <_expression>in_str_pathToFile</_expression>
+            <_expression>in_str_pathToFileDocx</_expression>
             <_value i:nil="true" />
             <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
           </PropertyValue>
@@ -79,23 +87,29 @@
                 </xs:schema>
                 <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
                   <DocumentElement xmlns="">
-                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable7" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
                       <Наименование>СФ</Наименование>
                       <RegexNum>(сч[её]т-фактура)\s*№[\D]*(?'num'\b[\w-/]*\d+[\w-/]*\b)</RegexNum>
                       <RegexDate>(заменить)[\D\n\t\s]*(?'date'((0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[ \/\.\-](\d){2,4})|(0?[1-9]|[12][0-9]|3[01]) (янв(?:аря)?|фев(?:раля)?|мар(?:та)?|апр(?:еля)?|мая|июн(?:я)?|июл(?:я)?|авг(?:уста)?|сен(?:тября)?|окт(?:ября)?|ноя(?:бря)?|дек(?:абря)?)[ \/\.\-](\d){2,4})</RegexDate>
                       <RegexINN>(продавец(.+?)\s*(?'INN'\d{10,12}\s*)/(\s*\d+)|(?'INN'\d{10,12}\s*)/(\s*\d+))</RegexINN>
                     </DataTableSettingsTable>
-                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable8" msdata:rowOrder="1" diffgr:hasChanges="inserted">
+                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
                       <Наименование>CO</Наименование>
                       <RegexNum>(Счет на оплату)\s*№[\D]*(?'num'\b[\w-/]*\d+[\w-/]*\b)</RegexNum>
                       <RegexDate>(заменить)[\D\n\t\s]*(?'date'((0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[ \/\.\-](\d){2,4})|(0?[1-9]|[12][0-9]|3[01]) (янв(?:аря)?|фев(?:раля)?|мар(?:та)?|апр(?:еля)?|мая|июн(?:я)?|июл(?:я)?|авг(?:уста)?|сен(?:тября)?|окт(?:ября)?|ноя(?:бря)?|дек(?:абря)?)[ \/\.\-](\d){2,4})</RegexDate>
                       <RegexINN>(Поставщик(.+?)\s*(?'INN'\d{10,12}\s*))</RegexINN>
                     </DataTableSettingsTable>
-                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable9" msdata:rowOrder="2" diffgr:hasChanges="inserted">
+                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable3" msdata:rowOrder="2" diffgr:hasChanges="inserted">
                       <Наименование>АКТ</Наименование>
                       <RegexNum>(акт)\s*№[\D]*(?'num'\b[\w-/]*\d+[\w-/]*\b)</RegexNum>
                       <RegexDate>(заменить)[\D\n\t\s]*(?'date'((0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[ \/\.\-](\d){2,4})|(0?[1-9]|[12][0-9]|3[01]) (янв(?:аря)?|фев(?:раля)?|мар(?:та)?|апр(?:еля)?|мая|июн(?:я)?|июл(?:я)?|авг(?:уста)?|сен(?:тября)?|окт(?:ября)?|ноя(?:бря)?|дек(?:абря)?)[ \/\.\-](\d){2,4})</RegexDate>
                       <RegexINN>(Исполнитель(.+?)\s*(?'INN'\d{10,12}\s*))</RegexINN>
+                    </DataTableSettingsTable>
+                    <DataTableSettingsTable diffgr:id="DataTableSettingsTable4" msdata:rowOrder="3" diffgr:hasChanges="inserted">
+                      <Наименование>ТН</Наименование>
+                      <RegexNum>(товарная накладная)\s*[\D]*(?'num'\b[\w-/]*\d+[\w-/]*\b)</RegexNum>
+                      <RegexDate>(заменить)[\D\n\t\s]*(?'date'((0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[ \/\.\-](\d){2,4})|(0?[1-9]|[12][0-9]|3[01]) (янв(?:аря)?|фев(?:раля)?|мар(?:та)?|апр(?:еля)?|мая|июн(?:я)?|июл(?:я)?|авг(?:уста)?|сен(?:тября)?|окт(?:ября)?|ноя(?:бря)?|дек(?:абря)?)[ \/\.\-](\d){2,4})</RegexDate>
+                      <RegexINN>(?'INN'\d{10,12}\s*)(.+?)\s*(?=Поставщик)</RegexINN>
                     </DataTableSettingsTable>
                   </DocumentElement>
                 </diffgr:diffgram>
@@ -209,155 +223,163 @@
       <AbstractStep z:Id="i18" i:type="ExecutedStep">
         <Childs>
           <AbstractStep z:Id="i19" i:type="ExecutedStep">
+            <Childs />
+            <Id>564852d3-6808-4cef-9e6e-90636cc4545c</Id>
+            <Parent z:Ref="i18" />
+            <PropertyValues>
+              <PropertyValue z:Id="i20">
+                <PropertyName>Value</PropertyName>
+                <_dataType>Expression</_dataType>
+                <_expression>0</_expression>
+                <_value i:nil="true" />
+                <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+              </PropertyValue>
+              <PropertyValue z:Id="i21">
+                <PropertyName>To</PropertyName>
+                <_dataType>Expression</_dataType>
+                <_expression>int_numCoincidences</_expression>
+                <_value i:nil="true" />
+                <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+              </PropertyValue>
+            </PropertyValues>
+            <SelectedOptionId i:nil="true" />
+            <EnableStatus>true</EnableStatus>
+            <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+            <RetryCount>-1</RetryCount>
+            <Text>(Присвоить значение) инициазлизация счетчика совпадений патерна</Text>
+            <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+          </AbstractStep>
+          <AbstractStep z:Id="i22" i:type="ExecutedStep">
+            <Childs />
+            <Id>0f2d20fa-65c6-4139-8708-73725b4bbdad</Id>
+            <Parent z:Ref="i18" />
+            <PropertyValues>
+              <PropertyValue z:Id="i23">
+                <PropertyName>Value</PropertyName>
+                <_dataType>Expression</_dataType>
+                <_expression>true</_expression>
+                <_value i:nil="true" />
+                <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+              </PropertyValue>
+              <PropertyValue z:Id="i24">
+                <PropertyName>To</PropertyName>
+                <_dataType>Expression</_dataType>
+                <_expression>bool_tableEmpty</_expression>
+                <_value i:nil="true" />
+                <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+              </PropertyValue>
+            </PropertyValues>
+            <SelectedOptionId i:nil="true" />
+            <EnableStatus>true</EnableStatus>
+            <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+            <RetryCount>-1</RetryCount>
+            <Text></Text>
+            <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+          </AbstractStep>
+          <AbstractStep z:Id="i25" i:type="ExecutedStep">
             <Childs>
-              <AbstractStep z:Id="i20" i:type="ExecutedStep">
+              <AbstractStep z:Id="i26" i:type="CommentStep">
                 <Childs />
-                <Id>78b33405-6910-432b-b1b1-8cacb1e611de</Id>
-                <Parent z:Ref="i19" />
-                <PropertyValues>
-                  <PropertyValue z:Id="i21">
-                    <PropertyName>Value</PropertyName>
-                    <_dataType>Expression</_dataType>
-                    <_expression>Regex.Match(str_pageText,$"{row_pattern["RegexNum"]}",RegexOptions.IgnoreCase | RegexOptions.Multiline).Groups["num"].Value</_expression>
-                    <_value i:nil="true" />
-                    <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                  </PropertyValue>
-                  <PropertyValue z:Id="i22">
-                    <PropertyName>To</PropertyName>
-                    <_dataType>Expression</_dataType>
-                    <_expression>str_findNum</_expression>
-                    <_value i:nil="true" />
-                    <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                  </PropertyValue>
-                </PropertyValues>
+                <Id>f1d5e365-ea8e-488a-8d31-adc36f2ab3a8</Id>
+                <Parent z:Ref="i25" />
+                <PropertyValues />
                 <SelectedOptionId i:nil="true" />
-                <EnableStatus>true</EnableStatus>
-                <ExceptionHandlingMode>Default</ExceptionHandlingMode>
-                <RetryCount>-1</RetryCount>
-                <Text>(Присвоить значение)_получение номера договора</Text>
-                <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                <Text>Если совпадений по всем патернам нет , то делается повторное сканирвание ocr обрабатываемой страници из pdf</Text>
               </AbstractStep>
-              <AbstractStep z:Id="i23" i:type="ExecutedStep">
+              <AbstractStep z:Id="i27" i:type="ExecutedStep">
                 <Childs>
-                  <AbstractStep z:Id="i24" i:type="ExecutedStep">
-                    <Childs>
-                      <AbstractStep z:Id="i25" i:type="CommentStep">
-                        <Childs />
-                        <Id>3c81d30e-22dd-4439-9620-1315b6261e8e</Id>
-                        <Parent z:Ref="i24" />
-                        <PropertyValues />
-                        <SelectedOptionId i:nil="true" />
-                        <Text>На странице нет соответсвующих элементов текущему патерну поиска</Text>
-                      </AbstractStep>
-                    </Childs>
-                    <Id>50bd4193-e47f-43f0-bfb6-ec2c6d4867b7</Id>
-                    <Parent z:Ref="i23" />
-                    <PropertyValues />
+                  <AbstractStep z:Id="i28" i:type="ExecutedStep">
+                    <Childs />
+                    <Id>bebad0e1-101f-4b13-aae8-0bca3158e691</Id>
+                    <Parent z:Ref="i27" />
+                    <PropertyValues>
+                      <PropertyValue z:Id="i29">
+                        <PropertyName>Value</PropertyName>
+                        <_dataType>Expression</_dataType>
+                        <_expression>Regex.Match(io_str_pageText,$"{row_pattern["RegexNum"]}",RegexOptions.IgnoreCase | RegexOptions.Multiline).Groups["num"].Value</_expression>
+                        <_value i:nil="true" />
+                        <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                      </PropertyValue>
+                      <PropertyValue z:Id="i30">
+                        <PropertyName>To</PropertyName>
+                        <_dataType>Expression</_dataType>
+                        <_expression>str_findNum</_expression>
+                        <_value i:nil="true" />
+                        <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                      </PropertyValue>
+                    </PropertyValues>
                     <SelectedOptionId i:nil="true" />
                     <EnableStatus>true</EnableStatus>
                     <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                     <RetryCount>-1</RetryCount>
-                    <Text></Text>
-                    <_activityFullName>BR.Core.Base.IfTrue</_activityFullName>
+                    <Text>(Присвоить значение)_получение номера договора</Text>
+                    <_activityFullName>BR.Core.Base.Assign</_activityFullName>
                   </AbstractStep>
-                  <AbstractStep z:Id="i26" i:type="ExecutedStep">
+                  <AbstractStep z:Id="i31" i:type="ExecutedStep">
                     <Childs>
-                      <AbstractStep z:Id="i27" i:type="ExecutedStep">
-                        <Childs />
-                        <Id>758eb541-3307-402a-a087-6c0aed9a5285</Id>
-                        <Parent z:Ref="i26" />
-                        <PropertyValues>
-                          <PropertyValue z:Id="i28">
-                            <PropertyName>Value</PropertyName>
-                            <_dataType>Expression</_dataType>
-                            <_expression>row_pattern["RegexDate"].ToString().Replace("(заменить)",str_findNum)</_expression>
-                            <_value i:nil="true" />
-                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                          </PropertyValue>
-                          <PropertyValue z:Id="i29">
-                            <PropertyName>To</PropertyName>
-                            <_dataType>Expression</_dataType>
-                            <_expression>str_patternDate</_expression>
-                            <_value i:nil="true" />
-                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                          </PropertyValue>
-                        </PropertyValues>
-                        <SelectedOptionId i:nil="true" />
-                        <EnableStatus>true</EnableStatus>
-                        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
-                        <RetryCount>-1</RetryCount>
-                        <Text>(Присвоить значение) редактирование патерна даты</Text>
-                        <_activityFullName>BR.Core.Base.Assign</_activityFullName>
-                      </AbstractStep>
-                      <AbstractStep z:Id="i30" i:type="ExecutedStep">
-                        <Childs />
-                        <Id>b94d8822-4c4d-4719-9818-3738ad16c34a</Id>
-                        <Parent z:Ref="i26" />
-                        <PropertyValues>
-                          <PropertyValue z:Id="i31">
-                            <PropertyName>Value</PropertyName>
-                            <_dataType>Expression</_dataType>
-                            <_expression>Regex.Match(str_pageText,$"{str_patternDate}",RegexOptions.IgnoreCase | RegexOptions.Multiline).Groups["date"].Value</_expression>
-                            <_value i:nil="true" />
-                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                          </PropertyValue>
-                          <PropertyValue z:Id="i32">
-                            <PropertyName>To</PropertyName>
-                            <_dataType>Expression</_dataType>
-                            <_expression>str_findDate</_expression>
-                            <_value i:nil="true" />
-                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                          </PropertyValue>
-                        </PropertyValues>
-                        <SelectedOptionId i:nil="true" />
-                        <EnableStatus>true</EnableStatus>
-                        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
-                        <RetryCount>-1</RetryCount>
-                        <Text>(Присвоить значение) получение даиы</Text>
-                        <_activityFullName>BR.Core.Base.Assign</_activityFullName>
-                      </AbstractStep>
-                      <AbstractStep z:Id="i33" i:type="ExecutedStep">
-                        <Childs />
-                        <Id>12f43331-3a36-4fbf-89e3-4620e8300180</Id>
-                        <Parent z:Ref="i26" />
-                        <PropertyValues>
-                          <PropertyValue z:Id="i34">
-                            <PropertyName>Value</PropertyName>
-                            <_dataType>Expression</_dataType>
-                            <_expression>Regex.Match(str_pageText,$"{row_pattern["RegexINN"]}",RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline).Groups["INN"].Value</_expression>
-                            <_value i:nil="true" />
-                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                          </PropertyValue>
-                          <PropertyValue z:Id="i35">
-                            <PropertyName>To</PropertyName>
-                            <_dataType>Expression</_dataType>
-                            <_expression>str_findINN</_expression>
-                            <_value i:nil="true" />
-                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                          </PropertyValue>
-                        </PropertyValues>
-                        <SelectedOptionId i:nil="true" />
-                        <EnableStatus>true</EnableStatus>
-                        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
-                        <RetryCount>-1</RetryCount>
-                        <Text>(Присвоить значение) получение инн</Text>
-                        <_activityFullName>BR.Core.Base.Assign</_activityFullName>
-                      </AbstractStep>
-                      <AbstractStep z:Id="i36" i:type="ExecutedStep">
+                      <AbstractStep z:Id="i32" i:type="ExecutedStep">
                         <Childs>
-                          <AbstractStep z:Id="i37" i:type="ExecutedStep">
+                          <AbstractStep z:Id="i33" i:type="CommentStep">
                             <Childs />
-                            <Id>1c751fc1-ef13-48c0-b252-be95a98ff3b8</Id>
-                            <Parent z:Ref="i36" />
+                            <Id>a5fc4375-5cf1-4504-ba6c-e27971a72ae2</Id>
+                            <Parent z:Ref="i32" />
+                            <PropertyValues />
+                            <SelectedOptionId i:nil="true" />
+                            <Text>На странице нет соответсвующих элементов текущему патерну поиска</Text>
+                          </AbstractStep>
+                        </Childs>
+                        <Id>5909fb01-ecaa-49d8-ab35-8f7588a6914b</Id>
+                        <Parent z:Ref="i31" />
+                        <PropertyValues />
+                        <SelectedOptionId i:nil="true" />
+                        <EnableStatus>true</EnableStatus>
+                        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                        <RetryCount>-1</RetryCount>
+                        <Text></Text>
+                        <_activityFullName>BR.Core.Base.IfTrue</_activityFullName>
+                      </AbstractStep>
+                      <AbstractStep z:Id="i34" i:type="ExecutedStep">
+                        <Childs>
+                          <AbstractStep z:Id="i35" i:type="ExecutedStep">
+                            <Childs />
+                            <Id>aa926575-24b8-4c17-a459-035ae5457e34</Id>
+                            <Parent z:Ref="i34" />
                             <PropertyValues>
-                              <PropertyValue z:Id="i38">
+                              <PropertyValue z:Id="i36">
+                                <PropertyName>Value</PropertyName>
+                                <_dataType>Expression</_dataType>
+                                <_expression>int_numCoincidences + 1</_expression>
+                                <_value i:nil="true" />
+                                <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                              </PropertyValue>
+                              <PropertyValue z:Id="i37">
+                                <PropertyName>To</PropertyName>
+                                <_dataType>Expression</_dataType>
+                                <_expression>int_numCoincidences</_expression>
+                                <_value i:nil="true" />
+                                <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                              </PropertyValue>
+                            </PropertyValues>
+                            <SelectedOptionId i:nil="true" />
+                            <EnableStatus>true</EnableStatus>
+                            <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                            <RetryCount>-1</RetryCount>
+                            <Text>(Присвоить значение) увеличение счетчика</Text>
+                            <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                          </AbstractStep>
+                          <AbstractStep z:Id="i38" i:type="ExecutedStep">
+                            <Childs />
+                            <Id>3f35abdf-d05d-4dee-8fb6-3f71345f9434</Id>
+                            <Parent z:Ref="i34" />
+                            <PropertyValues>
+                              <PropertyValue z:Id="i39">
                                 <PropertyName>Value</PropertyName>
                                 <_dataType>Expression</_dataType>
                                 <_expression>out_dt_document.NewRow()</_expression>
                                 <_value i:nil="true" />
                                 <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                               </PropertyValue>
-                              <PropertyValue z:Id="i39">
+                              <PropertyValue z:Id="i40">
                                 <PropertyName>To</PropertyName>
                                 <_dataType>Expression</_dataType>
                                 <_expression>new_row</_expression>
@@ -372,22 +394,22 @@
                             <Text>(Присвоить значение) создание новой строки</Text>
                             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
                           </AbstractStep>
-                          <AbstractStep z:Id="i40" i:type="ExecutedStep">
+                          <AbstractStep z:Id="i41" i:type="ExecutedStep">
                             <Childs />
-                            <Id>bb0837e1-998a-4b3e-9f24-8236f6fd99ee</Id>
-                            <Parent z:Ref="i36" />
+                            <Id>ddd67501-195d-4e8e-ab81-e90e66577369</Id>
+                            <Parent z:Ref="i34" />
                             <PropertyValues>
-                              <PropertyValue z:Id="i41">
-                                <PropertyName>Value</PropertyName>
-                                <_dataType>Expression</_dataType>
-                                <_expression>row_pattern["Наименование"]</_expression>
-                                <_value i:nil="true" />
-                                <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                              </PropertyValue>
                               <PropertyValue z:Id="i42">
+                                <PropertyName>Value</PropertyName>
+                                <_dataType>Expression</_dataType>
+                                <_expression>row_pattern["RegexDate"].ToString().Replace("(заменить)",str_findNum)</_expression>
+                                <_value i:nil="true" />
+                                <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                              </PropertyValue>
+                              <PropertyValue z:Id="i43">
                                 <PropertyName>To</PropertyName>
                                 <_dataType>Expression</_dataType>
-                                <_expression>new_row["Наименование"]</_expression>
+                                <_expression>str_patternDate</_expression>
                                 <_value i:nil="true" />
                                 <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                               </PropertyValue>
@@ -396,172 +418,417 @@
                             <EnableStatus>true</EnableStatus>
                             <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                             <RetryCount>-1</RetryCount>
-                            <Text>(Присвоить значение) запись имени в строку</Text>
+                            <Text>(Присвоить значение) редактирование патерна даты</Text>
                             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
                           </AbstractStep>
-                          <AbstractStep z:Id="i43" i:type="ExecutedStep">
+                          <AbstractStep z:Id="i44" i:type="ExecutedStep">
                             <Childs />
-                            <Id>4411388b-2a53-4656-97ed-7f28ddaa41e7</Id>
-                            <Parent z:Ref="i36" />
+                            <Id>23f0b5fb-8345-46ec-b8e5-5b63abaf368e</Id>
+                            <Parent z:Ref="i34" />
                             <PropertyValues>
-                              <PropertyValue z:Id="i44">
-                                <PropertyName>Value</PropertyName>
-                                <_dataType>Expression</_dataType>
-                                <_expression>str_findNum</_expression>
-                                <_value i:nil="true" />
-                                <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                              </PropertyValue>
                               <PropertyValue z:Id="i45">
-                                <PropertyName>To</PropertyName>
+                                <PropertyName>Value</PropertyName>
                                 <_dataType>Expression</_dataType>
-                                <_expression>new_row["Номер"]</_expression>
+                                <_expression>Regex.Match(io_str_pageText,$"{str_patternDate}",RegexOptions.IgnoreCase | RegexOptions.Multiline).Groups["date"].Value</_expression>
                                 <_value i:nil="true" />
                                 <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                               </PropertyValue>
-                            </PropertyValues>
-                            <SelectedOptionId i:nil="true" />
-                            <EnableStatus>true</EnableStatus>
-                            <ExceptionHandlingMode>Default</ExceptionHandlingMode>
-                            <RetryCount>-1</RetryCount>
-                            <Text>(Присвоить значение) запись номера строку</Text>
-                            <_activityFullName>BR.Core.Base.Assign</_activityFullName>
-                          </AbstractStep>
-                          <AbstractStep z:Id="i46" i:type="ExecutedStep">
-                            <Childs />
-                            <Id>db952334-112b-42c1-bf02-f24193244c86</Id>
-                            <Parent z:Ref="i36" />
-                            <PropertyValues>
-                              <PropertyValue z:Id="i47">
-                                <PropertyName>Value</PropertyName>
+                              <PropertyValue z:Id="i46">
+                                <PropertyName>To</PropertyName>
                                 <_dataType>Expression</_dataType>
                                 <_expression>str_findDate</_expression>
                                 <_value i:nil="true" />
                                 <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                               </PropertyValue>
+                            </PropertyValues>
+                            <SelectedOptionId i:nil="true" />
+                            <EnableStatus>true</EnableStatus>
+                            <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                            <RetryCount>-1</RetryCount>
+                            <Text>(Присвоить значение) получение даиы</Text>
+                            <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                          </AbstractStep>
+                          <AbstractStep z:Id="i47" i:type="ExecutedStep">
+                            <Childs />
+                            <Id>029bbdeb-bc04-43c0-9945-488a0557d80c</Id>
+                            <Parent z:Ref="i34" />
+                            <PropertyValues>
                               <PropertyValue z:Id="i48">
-                                <PropertyName>To</PropertyName>
-                                <_dataType>Expression</_dataType>
-                                <_expression>new_row["Дата"]</_expression>
-                                <_value i:nil="true" />
-                                <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                              </PropertyValue>
-                            </PropertyValues>
-                            <SelectedOptionId i:nil="true" />
-                            <EnableStatus>true</EnableStatus>
-                            <ExceptionHandlingMode>Default</ExceptionHandlingMode>
-                            <RetryCount>-1</RetryCount>
-                            <Text>(Присвоить значение) запись даты в строку</Text>
-                            <_activityFullName>BR.Core.Base.Assign</_activityFullName>
-                          </AbstractStep>
-                          <AbstractStep z:Id="i49" i:type="ExecutedStep">
-                            <Childs />
-                            <Id>9bd0f7f5-4b71-4257-9505-66043181083d</Id>
-                            <Parent z:Ref="i36" />
-                            <PropertyValues>
-                              <PropertyValue z:Id="i50">
                                 <PropertyName>Value</PropertyName>
                                 <_dataType>Expression</_dataType>
-                                <_expression>i</_expression>
+                                <_expression>Regex.Match(io_str_pageText,$"{row_pattern["RegexINN"]}",RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline).Groups["INN"].Value</_expression>
                                 <_value i:nil="true" />
                                 <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                               </PropertyValue>
-                              <PropertyValue z:Id="i51">
+                              <PropertyValue z:Id="i49">
                                 <PropertyName>To</PropertyName>
-                                <_dataType>Expression</_dataType>
-                                <_expression>new_row["Страница начала"]</_expression>
-                                <_value i:nil="true" />
-                                <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                              </PropertyValue>
-                            </PropertyValues>
-                            <SelectedOptionId i:nil="true" />
-                            <EnableStatus>true</EnableStatus>
-                            <ExceptionHandlingMode>Default</ExceptionHandlingMode>
-                            <RetryCount>-1</RetryCount>
-                            <Text>(Присвоить значение) запись номера страницы начала документа</Text>
-                            <_activityFullName>BR.Core.Base.Assign</_activityFullName>
-                          </AbstractStep>
-                          <AbstractStep z:Id="i52" i:type="ExecutedStep">
-                            <Childs />
-                            <Id>b0b96aaf-1ede-4617-a88b-672837e9e117</Id>
-                            <Parent z:Ref="i36" />
-                            <PropertyValues>
-                              <PropertyValue z:Id="i53">
-                                <PropertyName>Value</PropertyName>
                                 <_dataType>Expression</_dataType>
                                 <_expression>str_findINN</_expression>
                                 <_value i:nil="true" />
                                 <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                               </PropertyValue>
-                              <PropertyValue z:Id="i54">
-                                <PropertyName>To</PropertyName>
-                                <_dataType>Expression</_dataType>
-                                <_expression>new_row["ИНН"]</_expression>
-                                <_value i:nil="true" />
-                                <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                              </PropertyValue>
                             </PropertyValues>
                             <SelectedOptionId i:nil="true" />
                             <EnableStatus>true</EnableStatus>
                             <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                             <RetryCount>-1</RetryCount>
-                            <Text>(Присвоить значение) запись инн в документ</Text>
+                            <Text>(Присвоить значение) получение инн</Text>
                             <_activityFullName>BR.Core.Base.Assign</_activityFullName>
                           </AbstractStep>
-                          <AbstractStep z:Id="i55" i:type="ExecutedStep">
-                            <Childs />
-                            <Id>a2a62844-de6e-49f5-ab85-754385f6d9b6</Id>
-                            <Parent z:Ref="i36" />
-                            <PropertyValues>
-                              <PropertyValue z:Id="i56">
-                                <PropertyName>Row</PropertyName>
-                                <_dataType>Expression</_dataType>
-                                <_expression>new_row</_expression>
-                                <_value i:nil="true" />
-                                <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                              </PropertyValue>
-                              <PropertyValue z:Id="i57">
-                                <PropertyName>InsertPosition</PropertyName>
-                                <_dataType>Value</_dataType>
-                                <_expression i:nil="true" />
-                                <_value xmlns:d17p1="http://schemas.datacontract.org/2004/07/Activities.BaseCollections.DT" i:type="d17p1:InsertPosition">End</_value>
-                                <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                              </PropertyValue>
-                              <PropertyValue z:Id="i58">
-                                <PropertyName>AutoCreateColumns</PropertyName>
-                                <_dataType>Value</_dataType>
-                                <_expression i:nil="true" />
-                                <_value xmlns:d17p1="http://www.w3.org/2001/XMLSchema" i:type="d17p1:boolean">false</_value>
-                                <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                              </PropertyValue>
-                              <PropertyValue z:Id="i59">
-                                <PropertyName>BaseDataTable</PropertyName>
-                                <_dataType>Expression</_dataType>
-                                <_expression>out_dt_document</_expression>
-                                <_value i:nil="true" />
-                                <_xpathSettings xmlns:d17p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-                              </PropertyValue>
-                            </PropertyValues>
+                          <AbstractStep z:Id="i50" i:type="ExecutedStep">
+                            <Childs>
+                              <AbstractStep z:Id="i51" i:type="ExecutedStep">
+                                <Childs />
+                                <Id>d7fbe104-4a6e-4cdb-8642-a011cfa05c7e</Id>
+                                <Parent z:Ref="i50" />
+                                <PropertyValues>
+                                  <PropertyValue z:Id="i52">
+                                    <PropertyName>Value</PropertyName>
+                                    <_dataType>Expression</_dataType>
+                                    <_expression>row_pattern["Наименование"]</_expression>
+                                    <_value i:nil="true" />
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                  <PropertyValue z:Id="i53">
+                                    <PropertyName>To</PropertyName>
+                                    <_dataType>Expression</_dataType>
+                                    <_expression>new_row["Наименование"]</_expression>
+                                    <_value i:nil="true" />
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                </PropertyValues>
+                                <SelectedOptionId i:nil="true" />
+                                <EnableStatus>true</EnableStatus>
+                                <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                                <RetryCount>-1</RetryCount>
+                                <Text>(Присвоить значение) запись имени в строку</Text>
+                                <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                              </AbstractStep>
+                              <AbstractStep z:Id="i54" i:type="ExecutedStep">
+                                <Childs />
+                                <Id>32da0cca-c9a0-4f9e-b68a-f56999d4b148</Id>
+                                <Parent z:Ref="i50" />
+                                <PropertyValues>
+                                  <PropertyValue z:Id="i55">
+                                    <PropertyName>Value</PropertyName>
+                                    <_dataType>Expression</_dataType>
+                                    <_expression>str_findNum</_expression>
+                                    <_value i:nil="true" />
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                  <PropertyValue z:Id="i56">
+                                    <PropertyName>To</PropertyName>
+                                    <_dataType>Expression</_dataType>
+                                    <_expression>new_row["Номер"]</_expression>
+                                    <_value i:nil="true" />
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                </PropertyValues>
+                                <SelectedOptionId i:nil="true" />
+                                <EnableStatus>true</EnableStatus>
+                                <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                                <RetryCount>-1</RetryCount>
+                                <Text>(Присвоить значение) запись номера строку</Text>
+                                <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                              </AbstractStep>
+                              <AbstractStep z:Id="i57" i:type="ExecutedStep">
+                                <Childs />
+                                <Id>4ca6e6a4-a4c1-4dd3-8250-cbe5d22fbca5</Id>
+                                <Parent z:Ref="i50" />
+                                <PropertyValues>
+                                  <PropertyValue z:Id="i58">
+                                    <PropertyName>Value</PropertyName>
+                                    <_dataType>Expression</_dataType>
+                                    <_expression>str_findDate</_expression>
+                                    <_value i:nil="true" />
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                  <PropertyValue z:Id="i59">
+                                    <PropertyName>To</PropertyName>
+                                    <_dataType>Expression</_dataType>
+                                    <_expression>new_row["Дата"]</_expression>
+                                    <_value i:nil="true" />
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                </PropertyValues>
+                                <SelectedOptionId i:nil="true" />
+                                <EnableStatus>true</EnableStatus>
+                                <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                                <RetryCount>-1</RetryCount>
+                                <Text>(Присвоить значение) запись даты в строку</Text>
+                                <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                              </AbstractStep>
+                              <AbstractStep z:Id="i60" i:type="ExecutedStep">
+                                <Childs />
+                                <Id>e77a9e4a-cd4a-4438-a270-285869e8f8f8</Id>
+                                <Parent z:Ref="i50" />
+                                <PropertyValues>
+                                  <PropertyValue z:Id="i61">
+                                    <PropertyName>Value</PropertyName>
+                                    <_dataType>Expression</_dataType>
+                                    <_expression>int_numPage</_expression>
+                                    <_value i:nil="true" />
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                  <PropertyValue z:Id="i62">
+                                    <PropertyName>To</PropertyName>
+                                    <_dataType>Expression</_dataType>
+                                    <_expression>new_row["Страница начала"]</_expression>
+                                    <_value i:nil="true" />
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                </PropertyValues>
+                                <SelectedOptionId i:nil="true" />
+                                <EnableStatus>true</EnableStatus>
+                                <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                                <RetryCount>-1</RetryCount>
+                                <Text>(Присвоить значение) запись номера страницы начала документа</Text>
+                                <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                              </AbstractStep>
+                              <AbstractStep z:Id="i63" i:type="ExecutedStep">
+                                <Childs />
+                                <Id>2f9b1cb3-7022-4d1f-bc0c-cf9fa56f6484</Id>
+                                <Parent z:Ref="i50" />
+                                <PropertyValues>
+                                  <PropertyValue z:Id="i64">
+                                    <PropertyName>Value</PropertyName>
+                                    <_dataType>Expression</_dataType>
+                                    <_expression>str_findINN</_expression>
+                                    <_value i:nil="true" />
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                  <PropertyValue z:Id="i65">
+                                    <PropertyName>To</PropertyName>
+                                    <_dataType>Expression</_dataType>
+                                    <_expression>new_row["ИНН"]</_expression>
+                                    <_value i:nil="true" />
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                </PropertyValues>
+                                <SelectedOptionId i:nil="true" />
+                                <EnableStatus>true</EnableStatus>
+                                <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                                <RetryCount>-1</RetryCount>
+                                <Text>(Присвоить значение) запись инн в документ</Text>
+                                <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                              </AbstractStep>
+                              <AbstractStep z:Id="i66" i:type="ExecutedStep">
+                                <Childs />
+                                <Id>eb20bcb2-9a08-43dd-af94-bc9bcafec41c</Id>
+                                <Parent z:Ref="i50" />
+                                <PropertyValues>
+                                  <PropertyValue z:Id="i67">
+                                    <PropertyName>Row</PropertyName>
+                                    <_dataType>Expression</_dataType>
+                                    <_expression>new_row</_expression>
+                                    <_value i:nil="true" />
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                  <PropertyValue z:Id="i68">
+                                    <PropertyName>InsertPosition</PropertyName>
+                                    <_dataType>Value</_dataType>
+                                    <_expression i:nil="true" />
+                                    <_value xmlns:d19p1="http://schemas.datacontract.org/2004/07/Activities.BaseCollections.DT" i:type="d19p1:InsertPosition">End</_value>
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                  <PropertyValue z:Id="i69">
+                                    <PropertyName>AutoCreateColumns</PropertyName>
+                                    <_dataType>Value</_dataType>
+                                    <_expression i:nil="true" />
+                                    <_value xmlns:d19p1="http://www.w3.org/2001/XMLSchema" i:type="d19p1:boolean">false</_value>
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                  <PropertyValue z:Id="i70">
+                                    <PropertyName>BaseDataTable</PropertyName>
+                                    <_dataType>Expression</_dataType>
+                                    <_expression>out_dt_document</_expression>
+                                    <_value i:nil="true" />
+                                    <_xpathSettings xmlns:d19p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                                  </PropertyValue>
+                                </PropertyValues>
+                                <SelectedOptionId i:nil="true" />
+                                <EnableStatus>true</EnableStatus>
+                                <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                                <RetryCount>-1</RetryCount>
+                                <Text>(Добавить строку) в таблицу документов</Text>
+                                <_activityFullName>Activities.BaseCollections.DT.AddRow</_activityFullName>
+                              </AbstractStep>
+                            </Childs>
+                            <Id>fc558b50-af69-4c54-bb8c-cece89b596a2</Id>
+                            <Parent z:Ref="i34" />
+                            <PropertyValues />
                             <SelectedOptionId i:nil="true" />
                             <EnableStatus>true</EnableStatus>
                             <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                             <RetryCount>-1</RetryCount>
-                            <Text>(Добавить строку) в таблицу документов</Text>
-                            <_activityFullName>Activities.BaseCollections.DT.AddRow</_activityFullName>
+                            <Text>(Контейнер) заполнение данных о документе</Text>
+                            <_activityFullName>BR.Core.Base.Container</_activityFullName>
                           </AbstractStep>
                         </Childs>
-                        <Id>af2f47b7-8432-4913-ac44-43d7eae6d1b3</Id>
-                        <Parent z:Ref="i26" />
+                        <Id>7c724430-4917-426f-86b3-86135c6b3e58</Id>
+                        <Parent z:Ref="i31" />
                         <PropertyValues />
                         <SelectedOptionId i:nil="true" />
                         <EnableStatus>true</EnableStatus>
                         <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                         <RetryCount>-1</RetryCount>
-                        <Text>(Контейнер) заполнение данных о документе</Text>
-                        <_activityFullName>BR.Core.Base.Container</_activityFullName>
+                        <Text></Text>
+                        <_activityFullName>BR.Core.Base.IfFalse</_activityFullName>
                       </AbstractStep>
                     </Childs>
-                    <Id>b7b222ce-9434-4339-ba9f-e82e1bbfc2cd</Id>
-                    <Parent z:Ref="i23" />
+                    <Id>879e9c25-17ee-4754-bdc4-573ce647921e</Id>
+                    <Parent z:Ref="i27" />
+                    <PropertyValues>
+                      <PropertyValue z:Id="i71">
+                        <PropertyName>Condition</PropertyName>
+                        <_dataType>Expression</_dataType>
+                        <_expression>string.IsNullOrEmpty(str_findNum)</_expression>
+                        <_value i:nil="true" />
+                        <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                      </PropertyValue>
+                    </PropertyValues>
+                    <SelectedOptionId i:nil="true" />
+                    <EnableStatus>true</EnableStatus>
+                    <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                    <RetryCount>-1</RetryCount>
+                    <Text>(Условный оператор) если номер договора пустой</Text>
+                    <_activityFullName>BR.Core.Base.If</_activityFullName>
+                  </AbstractStep>
+                </Childs>
+                <Id>fadc6225-74fc-4c05-866e-183c10e7671f</Id>
+                <Parent z:Ref="i25" />
+                <PropertyValues>
+                  <PropertyValue z:Id="i72">
+                    <PropertyName>Collection</PropertyName>
+                    <_dataType>Expression</_dataType>
+                    <_expression>dt_patternSearch.Rows</_expression>
+                    <_value i:nil="true" />
+                    <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                  </PropertyValue>
+                  <PropertyValue z:Id="i73">
+                    <PropertyName>Iterator</PropertyName>
+                    <_dataType>Expression</_dataType>
+                    <_expression>row_pattern</_expression>
+                    <_value i:nil="true" />
+                    <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                  </PropertyValue>
+                  <PropertyValue z:Id="i74">
+                    <PropertyName>Counter</PropertyName>
+                    <_dataType>Expression</_dataType>
+                    <_expression></_expression>
+                    <_value i:nil="true" />
+                    <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                  </PropertyValue>
+                </PropertyValues>
+                <SelectedOptionId i:nil="true" />
+                <EnableStatus>true</EnableStatus>
+                <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                <RetryCount>-1</RetryCount>
+                <Text>(Цикл для каждого) патерна поиска "документа"</Text>
+                <_activityFullName>BR.Core.Base.LoopForEach</_activityFullName>
+              </AbstractStep>
+              <AbstractStep z:Id="i75" i:type="ExecutedStep">
+                <Childs>
+                  <AbstractStep z:Id="i76" i:type="ExecutedStep">
+                    <Childs>
+                      <AbstractStep z:Id="i77" i:type="ExecutedStep">
+                        <Childs />
+                        <Id>eb718591-87c5-4a8a-9373-2fd0acdae8ec</Id>
+                        <Parent z:Ref="i76" />
+                        <PropertyValues>
+                          <PropertyValue z:Id="i78">
+                            <PropertyName>Value</PropertyName>
+                            <_dataType>Expression</_dataType>
+                            <_expression>false</_expression>
+                            <_value i:nil="true" />
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                          <PropertyValue z:Id="i79">
+                            <PropertyName>To</PropertyName>
+                            <_dataType>Expression</_dataType>
+                            <_expression>bool_tableEmpty</_expression>
+                            <_value i:nil="true" />
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                        </PropertyValues>
+                        <SelectedOptionId i:nil="true" />
+                        <EnableStatus>true</EnableStatus>
+                        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                        <RetryCount>-1</RetryCount>
+                        <Text></Text>
+                        <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                      </AbstractStep>
+                    </Childs>
+                    <Id>95b82805-0a8e-4c1d-a1d3-4583c1e5005d</Id>
+                    <Parent z:Ref="i75" />
+                    <PropertyValues />
+                    <SelectedOptionId i:nil="true" />
+                    <EnableStatus>true</EnableStatus>
+                    <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                    <RetryCount>-1</RetryCount>
+                    <Text></Text>
+                    <_activityFullName>BR.Core.Base.IfTrue</_activityFullName>
+                  </AbstractStep>
+                  <AbstractStep z:Id="i80" i:type="ExecutedStep">
+                    <Childs>
+                      <AbstractStep z:Id="i81" i:type="ExecutedStep">
+                        <Childs />
+                        <Id>6f00375c-9c12-4bb2-a24c-87612e80f8c6</Id>
+                        <Parent z:Ref="i80" />
+                        <PropertyValues>
+                          <PropertyValue z:Id="i82">
+                            <PropertyName>FilePath</PropertyName>
+                            <_dataType>Expression</_dataType>
+                            <_expression>@"ExtractorOCR.pix"</_expression>
+                            <_value i:nil="true" />
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                          <PropertyValue z:Id="i83">
+                            <PropertyName>Parameters</PropertyName>
+                            <_dataType>Value</_dataType>
+                            <_expression i:nil="true" />
+                            <_value xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.Core" i:type="d15p1:ArrayOfArgumentItem">
+                              <d15p1:ArgumentItem z:Id="i84">
+                                <d15p1:ArgumentName>in_str_pathToPdf</d15p1:ArgumentName>
+                                <d15p1:Expression>in_str_pathToFilePdf</d15p1:Expression>
+                                <d15p1:Type>System.String</d15p1:Type>
+                              </d15p1:ArgumentItem>
+                              <d15p1:ArgumentItem z:Id="i85">
+                                <d15p1:ArgumentName>io_str_pageText</d15p1:ArgumentName>
+                                <d15p1:Expression>io_str_pageText</d15p1:Expression>
+                                <d15p1:Type>System.String</d15p1:Type>
+                              </d15p1:ArgumentItem>
+                              <d15p1:ArgumentItem z:Id="i86">
+                                <d15p1:ArgumentName>in_int_numPage</d15p1:ArgumentName>
+                                <d15p1:Expression>int_numPage</d15p1:Expression>
+                                <d15p1:Type>System.Int32</d15p1:Type>
+                              </d15p1:ArgumentItem>
+                              <d15p1:ArgumentItem z:Id="i87">
+                                <d15p1:ArgumentName>dict_paths</d15p1:ArgumentName>
+                                <d15p1:Expression>dict_paths</d15p1:Expression>
+                                <d15p1:Type>Dictionary&lt;System.String, System.String&gt;</d15p1:Type>
+                              </d15p1:ArgumentItem>
+                            </_value>
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                          <PropertyValue z:Id="i88">
+                            <PropertyName>Timeout</PropertyName>
+                            <_dataType>Value</_dataType>
+                            <_expression i:nil="true" />
+                            <_value xmlns:d15p1="http://www.w3.org/2001/XMLSchema" i:type="d15p1:int">0</_value>
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                        </PropertyValues>
+                        <SelectedOptionId i:nil="true" />
+                        <EnableStatus>true</EnableStatus>
+                        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                        <RetryCount>-1</RetryCount>
+                        <Text></Text>
+                        <_activityFullName>BR.Core.Base.ExecuteScript</_activityFullName>
+                      </AbstractStep>
+                    </Childs>
+                    <Id>4ed41b44-52d5-41f5-8c7d-1ff9aec3127b</Id>
+                    <Parent z:Ref="i75" />
                     <PropertyValues />
                     <SelectedOptionId i:nil="true" />
                     <EnableStatus>true</EnableStatus>
@@ -571,13 +838,13 @@
                     <_activityFullName>BR.Core.Base.IfFalse</_activityFullName>
                   </AbstractStep>
                 </Childs>
-                <Id>62d9aabf-1ef5-42ad-9944-e2fb5dc8aca8</Id>
-                <Parent z:Ref="i19" />
+                <Id>6f7236ea-666f-4ecc-9e0c-81a2a3c6bcba</Id>
+                <Parent z:Ref="i25" />
                 <PropertyValues>
-                  <PropertyValue z:Id="i60">
+                  <PropertyValue z:Id="i89">
                     <PropertyName>Condition</PropertyName>
                     <_dataType>Expression</_dataType>
-                    <_expression>string.IsNullOrEmpty(str_findNum)</_expression>
+                    <_expression>!(int_numCoincidences == 0) || !(int_retryAttempts &lt; 2)</_expression>
                     <_value i:nil="true" />
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
@@ -586,31 +853,24 @@
                 <EnableStatus>true</EnableStatus>
                 <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                 <RetryCount>-1</RetryCount>
-                <Text>(Условный оператор) если номер договора пустой</Text>
+                <Text>(Условный оператор) если совпадений патерна больше 0 или  кол-во попыток обработать больше или равно двум</Text>
                 <_activityFullName>BR.Core.Base.If</_activityFullName>
               </AbstractStep>
             </Childs>
-            <Id>1645fcb8-773c-40c8-afe7-95ec7b2aca72</Id>
+            <Id>68131841-c476-4742-a321-de5c05406774</Id>
             <Parent z:Ref="i18" />
             <PropertyValues>
-              <PropertyValue z:Id="i61">
-                <PropertyName>Collection</PropertyName>
+              <PropertyValue z:Id="i90">
+                <PropertyName>Condition</PropertyName>
                 <_dataType>Expression</_dataType>
-                <_expression>dt_patternSearch.Rows</_expression>
+                <_expression>bool_tableEmpty</_expression>
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
-              <PropertyValue z:Id="i62">
-                <PropertyName>Iterator</PropertyName>
-                <_dataType>Expression</_dataType>
-                <_expression>row_pattern</_expression>
-                <_value i:nil="true" />
-                <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
-              </PropertyValue>
-              <PropertyValue z:Id="i63">
+              <PropertyValue z:Id="i91">
                 <PropertyName>Counter</PropertyName>
                 <_dataType>Expression</_dataType>
-                <_expression></_expression>
+                <_expression>int_retryAttempts</_expression>
                 <_value i:nil="true" />
                 <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
               </PropertyValue>
@@ -619,31 +879,239 @@
             <EnableStatus>true</EnableStatus>
             <ExceptionHandlingMode>Default</ExceptionHandlingMode>
             <RetryCount>-1</RetryCount>
-            <Text>(Цикл для каждого) патерна поиска "документа"</Text>
-            <_activityFullName>BR.Core.Base.LoopForEach</_activityFullName>
+            <Text>(Цикл пока ...)  не будет найденно совпадение патерна </Text>
+            <_activityFullName>BR.Core.Base.LoopWhile</_activityFullName>
+          </AbstractStep>
+          <AbstractStep z:Id="i92" i:type="CommentStep">
+            <Childs />
+            <Id>092a3e61-09d1-43c5-9b1e-8e96df447f4c</Id>
+            <Parent z:Ref="i18" />
+            <PropertyValues />
+            <SelectedOptionId i:nil="true" />
+            <Text>Важна очередность проверок ,по этому нельзя обьединить эти два условия </Text>
+          </AbstractStep>
+          <AbstractStep z:Id="i93" i:type="ExecutedStep">
+            <Childs>
+              <AbstractStep z:Id="i94" i:type="ExecutedStep">
+                <Childs>
+                  <AbstractStep z:Id="i95" i:type="CommentStep">
+                    <Childs />
+                    <Id>acf14ea4-cba0-4e42-b635-7c5e6fe3f94e</Id>
+                    <Parent z:Ref="i94" />
+                    <PropertyValues />
+                    <SelectedOptionId i:nil="true" />
+                    <Text>1. Если было найдено несколько совпадений по патерну
+(механизм формирования таблици  подрузумивает создание новой строки на каждом этапе совпадения  патерна)
+2. Происходит подсчет кол-во совпадений патерна для страници (счетчик)
+3. С последнего элемента таблици и выше (в зависимости от счетчика) происходит встраивание "текста ошибки" </Text>
+                  </AbstractStep>
+                  <AbstractStep z:Id="i96" i:type="ExecutedStep">
+                    <Childs>
+                      <AbstractStep z:Id="i97" i:type="ExecutedStep">
+                        <Childs />
+                        <Id>207b1d34-978b-4bdb-a2cc-a5cc8b2d9da7</Id>
+                        <Parent z:Ref="i96" />
+                        <PropertyValues>
+                          <PropertyValue z:Id="i98">
+                            <PropertyName>Value</PropertyName>
+                            <_dataType>Expression</_dataType>
+                            <_expression>dt_patternSearch.Rows[dt_patternSearch.Rows.Count - int_shiftCounter + 1]</_expression>
+                            <_value i:nil="true" />
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                          <PropertyValue z:Id="i99">
+                            <PropertyName>To</PropertyName>
+                            <_dataType>Expression</_dataType>
+                            <_expression>row_target</_expression>
+                            <_value i:nil="true" />
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                        </PropertyValues>
+                        <SelectedOptionId i:nil="true" />
+                        <EnableStatus>true</EnableStatus>
+                        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                        <RetryCount>-1</RetryCount>
+                        <Text>(Присвоить значение) получение строки с ошибкой </Text>
+                        <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                      </AbstractStep>
+                      <AbstractStep z:Id="i100" i:type="ExecutedStep">
+                        <Childs />
+                        <Id>4c03f282-ea9e-48be-be45-baf7729162a9</Id>
+                        <Parent z:Ref="i96" />
+                        <PropertyValues>
+                          <PropertyValue z:Id="i101">
+                            <PropertyName>Value</PropertyName>
+                            <_dataType>Expression</_dataType>
+                            <_expression>"Было найдено больше 2 совпадений"</_expression>
+                            <_value i:nil="true" />
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                          <PropertyValue z:Id="i102">
+                            <PropertyName>To</PropertyName>
+                            <_dataType>Expression</_dataType>
+                            <_expression>row_target["Номер"]</_expression>
+                            <_value i:nil="true" />
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                        </PropertyValues>
+                        <SelectedOptionId i:nil="true" />
+                        <EnableStatus>true</EnableStatus>
+                        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                        <RetryCount>-1</RetryCount>
+                        <Text>(Присвоить значение) запись ошибки</Text>
+                        <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                      </AbstractStep>
+                      <AbstractStep z:Id="i103" i:type="ExecutedStep">
+                        <Childs />
+                        <Id>63d8e952-58e1-4bd9-a30e-e9b4fd85ed75</Id>
+                        <Parent z:Ref="i96" />
+                        <PropertyValues>
+                          <PropertyValue z:Id="i104">
+                            <PropertyName>Value</PropertyName>
+                            <_dataType>Expression</_dataType>
+                            <_expression>"Было найдено больше 2 совпадений"</_expression>
+                            <_value i:nil="true" />
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                          <PropertyValue z:Id="i105">
+                            <PropertyName>To</PropertyName>
+                            <_dataType>Expression</_dataType>
+                            <_expression>row_target["Дата"]</_expression>
+                            <_value i:nil="true" />
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                        </PropertyValues>
+                        <SelectedOptionId i:nil="true" />
+                        <EnableStatus>true</EnableStatus>
+                        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                        <RetryCount>-1</RetryCount>
+                        <Text>(Присвоить значение) запись ошибки</Text>
+                        <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                      </AbstractStep>
+                      <AbstractStep z:Id="i106" i:type="ExecutedStep">
+                        <Childs />
+                        <Id>570ea92b-dfe5-4bc0-8dae-4747577b508b</Id>
+                        <Parent z:Ref="i96" />
+                        <PropertyValues>
+                          <PropertyValue z:Id="i107">
+                            <PropertyName>Value</PropertyName>
+                            <_dataType>Expression</_dataType>
+                            <_expression>"Было найдено больше 2 совпадений"</_expression>
+                            <_value i:nil="true" />
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                          <PropertyValue z:Id="i108">
+                            <PropertyName>To</PropertyName>
+                            <_dataType>Expression</_dataType>
+                            <_expression>row_target["ИНН"]</_expression>
+                            <_value i:nil="true" />
+                            <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                          </PropertyValue>
+                        </PropertyValues>
+                        <SelectedOptionId i:nil="true" />
+                        <EnableStatus>true</EnableStatus>
+                        <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                        <RetryCount>-1</RetryCount>
+                        <Text>(Присвоить значение) запись ошибки</Text>
+                        <_activityFullName>BR.Core.Base.Assign</_activityFullName>
+                      </AbstractStep>
+                    </Childs>
+                    <Id>62345303-f40b-42a0-b1b2-0525e70eeaeb</Id>
+                    <Parent z:Ref="i94" />
+                    <PropertyValues>
+                      <PropertyValue z:Id="i109">
+                        <PropertyName>From</PropertyName>
+                        <_dataType>Expression</_dataType>
+                        <_expression>1</_expression>
+                        <_value i:nil="true" />
+                        <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                      </PropertyValue>
+                      <PropertyValue z:Id="i110">
+                        <PropertyName>To</PropertyName>
+                        <_dataType>Expression</_dataType>
+                        <_expression>int_numCoincidences</_expression>
+                        <_value i:nil="true" />
+                        <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                      </PropertyValue>
+                      <PropertyValue z:Id="i111">
+                        <PropertyName>Index</PropertyName>
+                        <_dataType>Expression</_dataType>
+                        <_expression>int_shiftCounter</_expression>
+                        <_value i:nil="true" />
+                        <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+                      </PropertyValue>
+                    </PropertyValues>
+                    <SelectedOptionId i:nil="true" />
+                    <EnableStatus>true</EnableStatus>
+                    <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                    <RetryCount>-1</RetryCount>
+                    <Text>(Цикл с ... по ...) в зависимости от кол-во совпадений патерна</Text>
+                    <_activityFullName>BR.Core.Base.LoopFor</_activityFullName>
+                  </AbstractStep>
+                </Childs>
+                <Id>7030c67c-eb07-4612-b26a-f407895f7d6f</Id>
+                <Parent z:Ref="i93" />
+                <PropertyValues />
+                <SelectedOptionId i:nil="true" />
+                <EnableStatus>true</EnableStatus>
+                <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                <RetryCount>-1</RetryCount>
+                <Text></Text>
+                <_activityFullName>BR.Core.Base.IfTrue</_activityFullName>
+              </AbstractStep>
+              <AbstractStep z:Id="i112" i:type="ExecutedStep">
+                <Childs />
+                <Id>fd699237-40ab-40c9-af27-07668ce20f82</Id>
+                <Parent z:Ref="i93" />
+                <PropertyValues />
+                <SelectedOptionId i:nil="true" />
+                <EnableStatus>true</EnableStatus>
+                <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+                <RetryCount>-1</RetryCount>
+                <Text></Text>
+                <_activityFullName>BR.Core.Base.IfFalse</_activityFullName>
+              </AbstractStep>
+            </Childs>
+            <Id>72ec959d-01ae-4598-8ddb-4368036fd870</Id>
+            <Parent z:Ref="i18" />
+            <PropertyValues>
+              <PropertyValue z:Id="i113">
+                <PropertyName>Condition</PropertyName>
+                <_dataType>Expression</_dataType>
+                <_expression>int_numCoincidences &gt; 1</_expression>
+                <_value i:nil="true" />
+                <_xpathSettings xmlns:d9p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
+              </PropertyValue>
+            </PropertyValues>
+            <SelectedOptionId i:nil="true" />
+            <EnableStatus>true</EnableStatus>
+            <ExceptionHandlingMode>Default</ExceptionHandlingMode>
+            <RetryCount>-1</RetryCount>
+            <Text>(Условный оператор) если совпадений по патарну больше одного</Text>
+            <_activityFullName>BR.Core.Base.If</_activityFullName>
           </AbstractStep>
         </Childs>
         <Id>b6740e79-c3fb-40d4-bbe2-128c173d0f49</Id>
         <Parent z:Ref="i2" />
         <PropertyValues>
-          <PropertyValue z:Id="i64">
+          <PropertyValue z:Id="i114">
             <PropertyName>Collection</PropertyName>
             <_dataType>Expression</_dataType>
             <_expression>ar_fileText</_expression>
             <_value i:nil="true" />
             <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
           </PropertyValue>
-          <PropertyValue z:Id="i65">
+          <PropertyValue z:Id="i115">
             <PropertyName>Iterator</PropertyName>
             <_dataType>Expression</_dataType>
-            <_expression>str_pageText</_expression>
+            <_expression>io_str_pageText</_expression>
             <_value i:nil="true" />
             <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
           </PropertyValue>
-          <PropertyValue z:Id="i66">
+          <PropertyValue z:Id="i116">
             <PropertyName>Counter</PropertyName>
             <_dataType>Expression</_dataType>
-            <_expression>i</_expression>
+            <_expression>int_numPage</_expression>
             <_value i:nil="true" />
             <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
           </PropertyValue>
@@ -655,25 +1123,25 @@
         <Text>(Цикл для каждого) листа файла</Text>
         <_activityFullName>BR.Core.Base.LoopForEach</_activityFullName>
       </AbstractStep>
-      <AbstractStep z:Id="i67" i:type="ExecutedStep">
+      <AbstractStep z:Id="i117" i:type="ExecutedStep">
         <Childs>
-          <AbstractStep z:Id="i68" i:type="ExecutedStep">
+          <AbstractStep z:Id="i118" i:type="ExecutedStep">
             <Childs>
-              <AbstractStep z:Id="i69" i:type="ExecutedStep">
+              <AbstractStep z:Id="i119" i:type="ExecutedStep">
                 <Childs>
-                  <AbstractStep z:Id="i70" i:type="ExecutedStep">
+                  <AbstractStep z:Id="i120" i:type="ExecutedStep">
                     <Childs />
                     <Id>ea5a4695-24de-4161-afb4-ef6e186456d5</Id>
-                    <Parent z:Ref="i69" />
+                    <Parent z:Ref="i119" />
                     <PropertyValues>
-                      <PropertyValue z:Id="i71">
+                      <PropertyValue z:Id="i121">
                         <PropertyName>Value</PropertyName>
                         <_dataType>Expression</_dataType>
                         <_expression>(Convert.ToInt32(out_dt_document.Rows[int_numDocument]["Страница начала"]) - 1).ToString()</_expression>
                         <_value i:nil="true" />
                         <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                       </PropertyValue>
-                      <PropertyValue z:Id="i72">
+                      <PropertyValue z:Id="i122">
                         <PropertyName>To</PropertyName>
                         <_dataType>Expression</_dataType>
                         <_expression>row_document["Страница конца"]</_expression>
@@ -690,7 +1158,7 @@
                   </AbstractStep>
                 </Childs>
                 <Id>cb759e99-02e2-4890-92c2-f9ad4f51de4d</Id>
-                <Parent z:Ref="i68" />
+                <Parent z:Ref="i118" />
                 <PropertyValues />
                 <SelectedOptionId i:nil="true" />
                 <EnableStatus>true</EnableStatus>
@@ -699,21 +1167,21 @@
                 <Text></Text>
                 <_activityFullName>BR.Core.Base.IfTrue</_activityFullName>
               </AbstractStep>
-              <AbstractStep z:Id="i73" i:type="ExecutedStep">
+              <AbstractStep z:Id="i123" i:type="ExecutedStep">
                 <Childs>
-                  <AbstractStep z:Id="i74" i:type="ExecutedStep">
+                  <AbstractStep z:Id="i124" i:type="ExecutedStep">
                     <Childs />
                     <Id>a0d0fc81-78f8-42a0-80a9-3109413ab5c4</Id>
-                    <Parent z:Ref="i73" />
+                    <Parent z:Ref="i123" />
                     <PropertyValues>
-                      <PropertyValue z:Id="i75">
+                      <PropertyValue z:Id="i125">
                         <PropertyName>Value</PropertyName>
                         <_dataType>Expression</_dataType>
                         <_expression>ar_fileText.Count()</_expression>
                         <_value i:nil="true" />
                         <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                       </PropertyValue>
-                      <PropertyValue z:Id="i76">
+                      <PropertyValue z:Id="i126">
                         <PropertyName>To</PropertyName>
                         <_dataType>Expression</_dataType>
                         <_expression>row_document["Страница конца"] </_expression>
@@ -730,7 +1198,7 @@
                   </AbstractStep>
                 </Childs>
                 <Id>589be8e1-d5b0-4a5c-bba0-dc69496837cc</Id>
-                <Parent z:Ref="i68" />
+                <Parent z:Ref="i118" />
                 <PropertyValues />
                 <SelectedOptionId i:nil="true" />
                 <EnableStatus>true</EnableStatus>
@@ -741,9 +1209,9 @@
               </AbstractStep>
             </Childs>
             <Id>30f48a87-17a0-4014-ba1a-edb5dc6837e9</Id>
-            <Parent z:Ref="i67" />
+            <Parent z:Ref="i117" />
             <PropertyValues>
-              <PropertyValue z:Id="i77">
+              <PropertyValue z:Id="i127">
                 <PropertyName>Condition</PropertyName>
                 <_dataType>Expression</_dataType>
                 <_expression>int_numDocument &lt; out_dt_document.Rows.Count</_expression>
@@ -762,21 +1230,21 @@
         <Id>44ce1eee-9baa-493f-8490-f0a77ab327f3</Id>
         <Parent z:Ref="i2" />
         <PropertyValues>
-          <PropertyValue z:Id="i78">
+          <PropertyValue z:Id="i128">
             <PropertyName>Collection</PropertyName>
             <_dataType>Expression</_dataType>
             <_expression>out_dt_document.Rows</_expression>
             <_value i:nil="true" />
             <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
           </PropertyValue>
-          <PropertyValue z:Id="i79">
+          <PropertyValue z:Id="i129">
             <PropertyName>Iterator</PropertyName>
             <_dataType>Expression</_dataType>
             <_expression>row_document</_expression>
             <_value i:nil="true" />
             <_xpathSettings xmlns:d7p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
           </PropertyValue>
-          <PropertyValue z:Id="i80">
+          <PropertyValue z:Id="i130">
             <PropertyName>Counter</PropertyName>
             <_dataType>Expression</_dataType>
             <_expression>int_numDocument</_expression>
@@ -807,17 +1275,29 @@
     <d2p1:string>System.Text.RegularExpressions</d2p1:string>
   </Namespaces>
   <Params>
-    <Parameter z:Id="i81">
+    <Parameter z:Id="i131">
       <DefaultValueExpression></DefaultValueExpression>
       <Description></Description>
-      <Name>in_str_pathToFile</Name>
+      <Name>in_str_pathToFileDocx</Name>
       <TypeString>System.String</TypeString>
     </Parameter>
-    <Parameter z:Id="i82">
+    <Parameter z:Id="i132">
       <DefaultValueExpression></DefaultValueExpression>
       <Description></Description>
       <Name>out_dt_document</Name>
       <TypeString>System.Data.DataTable</TypeString>
+    </Parameter>
+    <Parameter z:Id="i133">
+      <DefaultValueExpression></DefaultValueExpression>
+      <Description></Description>
+      <Name>in_str_pathToFilePdf</Name>
+      <TypeString>System.String</TypeString>
+    </Parameter>
+    <Parameter z:Id="i134">
+      <DefaultValueExpression></DefaultValueExpression>
+      <Description></Description>
+      <Name>dict_paths</Name>
+      <TypeString>System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]</TypeString>
     </Parameter>
   </Params>
   <TemplateVersion xmlns:d2p1="http://schemas.datacontract.org/2004/07/System" i:nil="true" />
