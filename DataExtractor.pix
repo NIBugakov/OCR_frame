@@ -844,7 +844,7 @@
                   <PropertyValue z:Id="i89">
                     <PropertyName>Condition</PropertyName>
                     <_dataType>Expression</_dataType>
-                    <_expression>!(int_numCoincidences == 0) || !(int_retryAttempts &lt; 2)</_expression>
+                    <_expression>int_numCoincidences != 0 || int_retryAttempts &gt; 1</_expression>
                     <_value i:nil="true" />
                     <_xpathSettings xmlns:d11p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                   </PropertyValue>
@@ -853,7 +853,7 @@
                 <EnableStatus>true</EnableStatus>
                 <ExceptionHandlingMode>Default</ExceptionHandlingMode>
                 <RetryCount>-1</RetryCount>
-                <Text>(Условный оператор) если совпадений патерна больше 0 или  кол-во попыток обработать больше или равно двум</Text>
+                <Text>(Условный оператор) если совпадений патерна больше 0 или  кол-во попыток обработать больше единици</Text>
                 <_activityFullName>BR.Core.Base.If</_activityFullName>
               </AbstractStep>
             </Childs>
@@ -903,7 +903,7 @@
                     <Text>1. Если было найдено несколько совпадений по патерну
 (механизм формирования таблици  подрузумивает создание новой строки на каждом этапе совпадения  патерна)
 2. Происходит подсчет кол-во совпадений патерна для страници (счетчик)
-3. С последнего элемента таблици и выше (в зависимости от счетчика) происходит встраивание "текста ошибки" </Text>
+3. С превой добалвенной (для текущей стриници) строки до последней происходит встраивание "текста ошибки" </Text>
                   </AbstractStep>
                   <AbstractStep z:Id="i96" i:type="ExecutedStep">
                     <Childs>
@@ -915,7 +915,7 @@
                           <PropertyValue z:Id="i98">
                             <PropertyName>Value</PropertyName>
                             <_dataType>Expression</_dataType>
-                            <_expression>dt_patternSearch.Rows[dt_patternSearch.Rows.Count - int_shiftCounter + 1]</_expression>
+                            <_expression>out_dt_document.Rows[int_numRow]</_expression>
                             <_value i:nil="true" />
                             <_xpathSettings xmlns:d15p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                           </PropertyValue>
@@ -1022,21 +1022,21 @@
                       <PropertyValue z:Id="i109">
                         <PropertyName>From</PropertyName>
                         <_dataType>Expression</_dataType>
-                        <_expression>1</_expression>
+                        <_expression>out_dt_document.Rows.Count - int_numCoincidences</_expression>
                         <_value i:nil="true" />
                         <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                       </PropertyValue>
                       <PropertyValue z:Id="i110">
                         <PropertyName>To</PropertyName>
                         <_dataType>Expression</_dataType>
-                        <_expression>int_numCoincidences</_expression>
+                        <_expression>out_dt_document.Rows.Count</_expression>
                         <_value i:nil="true" />
                         <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                       </PropertyValue>
                       <PropertyValue z:Id="i111">
                         <PropertyName>Index</PropertyName>
                         <_dataType>Expression</_dataType>
-                        <_expression>int_shiftCounter</_expression>
+                        <_expression>int_numRow</_expression>
                         <_value i:nil="true" />
                         <_xpathSettings xmlns:d13p1="http://schemas.datacontract.org/2004/07/BR.XPath" i:nil="true" />
                       </PropertyValue>
